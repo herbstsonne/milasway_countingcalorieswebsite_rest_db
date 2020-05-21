@@ -1,0 +1,37 @@
+﻿@page "/displayfood"
+@using MilasFitnessUI.Models
+@using MilasFitnessUI.Services
+
+@inject FoodService FoodService
+
+<h3>Food overview</h3>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Calories per 100g</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var food in allFood)
+    {
+        <tr>
+            <td>@food.Name</td>
+            <td>@food.CaloriesPer100g</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+
+    private List<Food> allFood;
+
+    protected override void OnInitialized()
+    {
+        allFood = FoodService.GetAllFood();
+        base.OnInitialized();
+    }
+
+}

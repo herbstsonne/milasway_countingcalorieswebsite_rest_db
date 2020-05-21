@@ -1,0 +1,50 @@
+﻿@page "/enternewfood"
+@using MilasFitnessUI.Models
+@using MilasFitnessUI.Services
+@inject FoodService FoodService
+
+<h3>Enter new food</h3>
+
+<EditForm Model="@NewFood">
+
+    <div class="row">
+        <ul>
+            <li>
+                <label>
+                    Name
+                    <InputText id="name" @bind-Value="NewFood.Name" />
+                </label>
+            </li>
+            <li>
+                <label>
+                    KalorienPro100g
+                    <InputNumber id="caloriesper100g" @bind-Value="NewFood.CaloriesPer100g" />
+                </label>
+            </li>
+            <li>
+                <a class="btn btn-primary" @onclick="Save">Speichern</a>
+            </li>
+        </ul>
+    </div>
+</EditForm>
+
+@code {
+
+    private Food NewFood = new Food();
+
+    protected override void OnInitialized()
+    {
+        NewFood = new Food();
+        base.OnInitialized();
+    }
+
+    public void Save()
+    {
+        if (NewFood == null)
+            return;
+        FoodService.SaveFood(NewFood);
+
+        NewFood = new Food();
+        StateHasChanged();
+    }
+}

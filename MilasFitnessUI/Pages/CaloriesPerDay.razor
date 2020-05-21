@@ -14,7 +14,7 @@
             <li><label>Nahrungsmittel hinzufügen:</label></li>
 
             <li>
-                <InputSelect id="name" @bind-Value="@Name" @bind-Value:event="oninput">
+                <InputSelect id="name" @bind-Value="@Name">
                     @foreach (var food in allExistingFood)
                     {
                         <option value="@food.Name">@food.Name</option>

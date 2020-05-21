@@ -44,7 +44,7 @@
             foreach (var foodEntry in FoodToday.WhatIAte)
             {
                 <td>@foodEntry.Food.Name</td>
-                <td>@CalculateCalories(foodEntry.Food)</td>
+                <td>@CalculateCalories(foodEntry)</td>
             }
         }
     </table>
@@ -79,9 +79,9 @@
         FoodEntry = new FoodEntry();
     }
 
-    private int CalculateCalories(Food enteredFood)
+    private int CalculateCalories(FoodEntry foodEntry)
     {
-        var relative = FoodEntry.Amount / 100;
-        return relative * enteredFood.CaloriesPer100g;
+        var relative = foodEntry.Amount / 100;
+        return relative * foodEntry.Food.CaloriesPer100g;
     }
 }

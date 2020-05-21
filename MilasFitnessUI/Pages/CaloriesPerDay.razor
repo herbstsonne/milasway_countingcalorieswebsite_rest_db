@@ -5,36 +5,34 @@
 @inject CountCaloryService CaloryService
 @inject FoodService FoodService
 
-<h3>Calories per Day</h3>
+    <h3>Counted Calories at @CurrentDate</h3>
 
 <EditForm Model="@FoodEntry">
-
-    <label>@CurrentDate</label>
 
     <div class="row">
         <ul>
             <li><label>Nahrungsmittel hinzufügen:</label></li>
 
             <li>
-                <InputSelect @bind-Value="FoodEntry.Food">
+                <InputSelect id="name" @bind-Value="@Name" @bind-Value:event="oninput">
                     @foreach (var food in allExistingFood)
                     {
-                        <option value="@food">@food.Name</option>
+                        <option value="@food.Name">@food.Name</option>
                     }
                 </InputSelect>
             </li>
             <li>
                 <label>
                     Menge in g
-                    <InputNumber id="amount" @bind-Value="FoodEntry.Amount"/>
+                    <InputNumber id="amount" @bind-Value="FoodEntry.Amount" />
                 </label>
             </li>
             <li><a class="btn btn-primary" @onclick="AddFoodEntry">Eintrag hinzufügen</a></li>
         </ul>
     </div>
 
+    <caption>Was ich am @CurrentDate schon gegessen habe:</caption>
     <table>
-        <caption>Was ich am @CurrentDate schon gegessen habe:</caption>
         <tr>
             <th>Name</th>
             <th>Kalorienzahl</th>
@@ -43,16 +41,19 @@
         {
             foreach (var foodEntry in FoodToday.WhatIAte)
             {
-                <td>@foodEntry.Food.Name</td>
-                <td>@CalculateCalories(foodEntry)</td>
-            }
-        }
-    </table>
+                <tr>
+                    <td>@foodEntry.Food?.Name</td>
+                    <td>@foodEntry.Calories</td>
+                </tr>
+             }
+         }
+        </table>
+    <p>Das sind insgesamt @SumUpCaloriesOfToday() Kalorien :)</p>
 </EditForm>
 
 
 @code {
-    private string enteredFoodName;
+    string Name { get; set; }
     private FoodInDay FoodToday;
     private List<Food> allExistingFood;
     private FoodEntry FoodEntry;
@@ -70,18 +71,33 @@
                     };
         allExistingFood = FoodService.GetAllFood();
         CurrentDate = DateTime.Now.ToShortDateString();
+
         base.OnInitialized();
     }
 
-    private async void AddFoodEntry()
+    private void AddFoodEntry()
     {
+        FoodEntry.Food = allExistingFood.FirstOrDefault(f => f.Name.Equals(Name));
+        FoodEntry.Calories = CalculateCalories(FoodEntry);
         FoodToday.WhatIAte.Add(FoodEntry);
-        FoodEntry = new FoodEntry();
+        FoodEntry = new FoodEntry() { Amount = 0, Food = new Food() };
+
+        StateHasChanged();
     }
 
     private int CalculateCalories(FoodEntry foodEntry)
     {
-        var relative = foodEntry.Amount / 100;
-        return relative * foodEntry.Food.CaloriesPer100g;
+        var relative = foodEntry.Amount / 100.0f;
+        return (int)(relative * (foodEntry.Food?.CaloriesPer100g ?? 0.0f));
+    }
+
+    private int SumUpCaloriesOfToday()
+    {
+        var sum = 0;
+        foreach (var e in FoodToday.WhatIAte)
+        {
+            sum += e.Calories;
+        }
+        return sum;
     }
 }

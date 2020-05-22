@@ -5,11 +5,11 @@ using MilasFitnessUI.Models;
 
 namespace MilasFitnessUI.Services
 {
-    public class CountCaloryService
+    public class CountCalorieService
     {
         public List<FoodInDay> allFoodInDays;
 
-        public CountCaloryService()
+        public CountCalorieService()
         {
             allFoodInDays = new List<FoodInDay>();
         }

@@ -1,8 +1,6 @@
-﻿@page "/displayfood"
-@using MilasFitnessUI.Models
-@using MilasFitnessUI.Services
+﻿@page "/foodoverview"
 
-@inject FoodService FoodService
+@inherits FoodOverviewBase
 
 <h3>Food overview</h3>
 
@@ -24,14 +22,3 @@
     </tbody>
 </table>
 
-@code {
-
-    private List<Food> allFood;
-
-    protected override void OnInitialized()
-    {
-        allFood = FoodService.GetAllFood();
-        base.OnInitialized();
-    }
-
-}

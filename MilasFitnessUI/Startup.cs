@@ -34,8 +34,8 @@ namespace MilasFitnessUI
             );
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<CountCaloryService>();
-            services.AddSingleton<FoodService>();
+            services.AddScoped<CountCalorieService>();
+            services.AddScoped<FoodService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

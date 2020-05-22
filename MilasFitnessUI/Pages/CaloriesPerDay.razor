@@ -1,21 +1,19 @@
 ﻿@page "/caloriesperday"
 @using MilasFitnessUI.Models
-@using MilasFitnessUI.Services
 
-@inject CountCaloryService CaloryService
-@inject FoodService FoodService
+@inherits CaloriesPerDayBase
 
-    <h3>Counted Calories at @CurrentDate</h3>
+<h3>Counted Calories at @CurrentDate</h3>
 
 <EditForm Model="@FoodEntry">
 
     <div class="row">
         <ul>
-            <li><label>Nahrungsmittel hinzufügen:</label></li>
+            <li><label>Choose:</label></li>
 
             <li>
                 <InputSelect id="name" @bind-Value="@Name">
-                    @foreach (var food in allExistingFood)
+                    @foreach (var food in AllExistingFood)
                     {
                         <option value="@food.Name">@food.Name</option>
                     }
@@ -23,7 +21,7 @@
             </li>
             <li>
                 <label>
-                    Menge in g
+                    Amount in g
                     <InputNumber id="amount" @bind-Value="FoodEntry.Amount" />
                 </label>
             </li>
@@ -31,7 +29,6 @@
         </ul>
     </div>
 
-    <caption>Was ich am @CurrentDate schon gegessen habe:</caption>
     <table>
         <tr>
             <th>Name</th>
@@ -51,53 +48,3 @@
     <p>Das sind insgesamt @SumUpCaloriesOfToday() Kalorien :)</p>
 </EditForm>
 
-
-@code {
-    string Name { get; set; }
-    private FoodInDay FoodToday;
-    private List<Food> allExistingFood;
-    private FoodEntry FoodEntry;
-
-    private string CurrentDate;
-
-    protected override void OnInitialized()
-    {
-        FoodEntry = new FoodEntry() {Amount = 0, Food = new Food()};
-        FoodToday = CaloryService.GetFoodOfDay(DateTime.Now) ??
-                    new FoodInDay()
-                    {
-                        Day = DateTime.Now,
-                        WhatIAte = new List<FoodEntry>()
-                    };
-        allExistingFood = FoodService.GetAllFood();
-        CurrentDate = DateTime.Now.ToShortDateString();
-
-        base.OnInitialized();
-    }
-
-    private void AddFoodEntry()
-    {
-        FoodEntry.Food = allExistingFood.FirstOrDefault(f => f.Name.Equals(Name));
-        FoodEntry.Calories = CalculateCalories(FoodEntry);
-        FoodToday.WhatIAte.Add(FoodEntry);
-        FoodEntry = new FoodEntry() { Amount = 0, Food = new Food() };
-
-        StateHasChanged();
-    }
-
-    private int CalculateCalories(FoodEntry foodEntry)
-    {
-        var relative = foodEntry.Amount / 100.0f;
-        return (int)(relative * (foodEntry.Food?.CaloriesPer100g ?? 0.0f));
-    }
-
-    private int SumUpCaloriesOfToday()
-    {
-        var sum = 0;
-        foreach (var e in FoodToday.WhatIAte)
-        {
-            sum += e.Calories;
-        }
-        return sum;
-    }
-}

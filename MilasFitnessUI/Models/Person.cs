@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MilasFitnessUI.Models
+namespace CountingCalories.Models
 {
     public class Person
     {

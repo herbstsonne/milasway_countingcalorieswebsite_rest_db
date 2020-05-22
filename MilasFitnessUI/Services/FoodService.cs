@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using MilasFitnessUI.Models;
+using CountingCalories.Models;
 
-namespace MilasFitnessUI.Services
+namespace CountingCalories.Services
 {
     public class FoodService
     {

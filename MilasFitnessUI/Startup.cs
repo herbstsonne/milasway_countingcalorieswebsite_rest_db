@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MilasFitnessUI.Services;
+using CountingCalories.Services;
 
-namespace MilasFitnessUI
+namespace CountingCalories
 {
     public class Startup
     {

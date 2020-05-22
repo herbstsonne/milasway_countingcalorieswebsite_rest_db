@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MilasFitnessUI.Models;
+using CountingCalories.Models;
 
-namespace MilasFitnessUI.Services
+namespace CountingCalories.Services
 {
     public class CountCalorieService
     {

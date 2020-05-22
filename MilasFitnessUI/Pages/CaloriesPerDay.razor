@@ -1,9 +1,8 @@
 ﻿@page "/caloriesperday"
-@using MilasFitnessUI.Models
 
 @inherits CaloriesPerDayBase
 
-<h3>Counted Calories at @CurrentDate</h3>
+<h3>Counting Calories at @CurrentDate</h3>
 
 <EditForm Model="@FoodEntry">
 
@@ -25,14 +24,14 @@
                     <InputNumber id="amount" @bind-Value="FoodEntry.Amount" />
                 </label>
             </li>
-            <li><a class="btn btn-primary" @onclick="AddFoodEntry">Eintrag hinzufügen</a></li>
+            <li><a class="btn btn-primary" @onclick="AddFoodEntry">Add entry</a></li>
         </ul>
     </div>
 
     <table>
         <tr>
             <th>Name</th>
-            <th>Kalorienzahl</th>
+            <th>Calories</th>
         </tr>
         @if (FoodToday.WhatIAte.Any())
         {
@@ -45,6 +44,6 @@
              }
          }
         </table>
-    <p>Das sind insgesamt @SumUpCaloriesOfToday() Kalorien :)</p>
+    <p>You ate @SumUpCaloriesOfToday() calories so far :)</p>
 </EditForm>
 

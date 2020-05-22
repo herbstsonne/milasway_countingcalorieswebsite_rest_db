@@ -1,5 +1,5 @@
 ﻿
-namespace MilasFitnessUI.Models
+namespace CountingCalories.Models
 {
     public class FoodEntry
     {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
-using MilasFitnessUI.Models;
-using MilasFitnessUI.Services;
+using CountingCalories.Models;
+using CountingCalories.Services;
 
 
-namespace MilasFitnessUI.Pages
+namespace CountingCalories.Pages
 {
     public class CaloriesPerDayBase : ComponentBase
     {

@@ -8,7 +8,9 @@
 
     <div class="row">
         <ul>
-            <li><label>Choose:</label></li>
+            <li>
+                <label>Choose:</label>
+            </li>
 
             <li>
                 <InputSelect id="name" @bind-Value="@Name">
@@ -21,10 +23,12 @@
             <li>
                 <label>
                     Amount in g
-                    <InputNumber id="amount" @bind-Value="FoodEntry.Amount" />
+                    <InputNumber id="amount" @bind-Value="FoodEntry.Amount"/>
                 </label>
             </li>
-            <li><a class="btn btn-primary" @onclick="AddFoodEntry">Add entry</a></li>
+            <li>
+                <a class="btn btn-primary" @onclick="AddFoodEntry">Add entry</a>
+            </li>
         </ul>
     </div>
 
@@ -41,9 +45,8 @@
                     <td>@foodEntry.Food?.Name</td>
                     <td>@foodEntry.Calories</td>
                 </tr>
-             }
-         }
-        </table>
+            }
+        }
+    </table>
     <p>You ate @SumUpCaloriesOfToday() calories so far :)</p>
 </EditForm>
-

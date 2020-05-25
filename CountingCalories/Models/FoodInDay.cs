@@ -8,6 +8,5 @@ namespace CountingCalories.Models
     public class FoodInDay
     {
         public List<FoodEntry> WhatIAte { get; set; }
-        public DateTime Day { get; set; }
     }
 }

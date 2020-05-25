@@ -7,20 +7,21 @@ namespace CountingCalories.Services
 {
     public class CountCalorieService
     {
-        public List<FoodInDay> allFoodInDays;
+        public List<FoodInDay> AllFoodInDays;
 
         public CountCalorieService()
         {
-            allFoodInDays = new List<FoodInDay>();
+            AllFoodInDays = new List<FoodInDay>();
         }
 
         public void AddFoodOfDay(FoodInDay food)
         {
-            allFoodInDays.Add(food);
+            AllFoodInDays.Add(food);
         }
+
         public FoodInDay GetFoodOfDay(DateTime date)
         {
-            return allFoodInDays.FirstOrDefault(f => f.Day.Equals(date));
+            return AllFoodInDays.FirstOrDefault(f => f.Day.Equals(date));
         }
     }
 }

@@ -7,18 +7,14 @@ namespace CountingCalories.Pages
 {
     public class FoodOverviewBase : ComponentBase
     {
-        [Inject] private FoodService FoodService { get; set; }
+        [Inject]
+        public FoodService _FoodService { get; set; }
 
-        protected List<Food> AllFood;
+        public List<Food> allFood;
 
-        public FoodOverviewBase(FoodService foodService)
+        protected override void OnInitialized()
         {
-            FoodService = foodService;
-        }
-
-        protected void OnInitialized()
-        {
-            AllFood = FoodService.GetAllFood();
+            allFood = _FoodService.GetAllFood();
             base.OnInitialized();
         }
     }

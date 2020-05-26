@@ -5,22 +5,22 @@ namespace CountingCalories.Services
 {
     public class FoodService
     {
-        private List<Food> AllFood { get; set; }
+        public List<Food> allFood { get; set; }
 
         public FoodService()
         {
-            AllFood = new List<Food>();
+            allFood = new List<Food>();
         }
 
         public void SaveFood(Food food)
         {
-            AllFood.Add(food);
+            allFood.Add(food);
             //RestAPI Call
         }
 
         public List<Food> GetAllFood()
         {
-            return AllFood;
+            return allFood;
         }
     }
 }

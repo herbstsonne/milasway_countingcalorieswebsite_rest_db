@@ -6,17 +6,17 @@ namespace CountingCalories.Pages
 {
     public class EnterNewFoodBase : ComponentBase
     {
-        protected Food NewFood;
+        public Food NewFood;
 
-        [Inject] private FoodService FoodService { get; set; }
+        [Inject]
+        public FoodService _FoodService { get; set; }
 
-        public EnterNewFoodBase(FoodService foodService)
+        public EnterNewFoodBase()
         {
-            FoodService = foodService;
             NewFood = new Food();
         }
 
-        protected void OnInitialized()
+        protected override void OnInitialized()
         {
             NewFood = new Food();
             base.OnInitialized();
@@ -25,8 +25,8 @@ namespace CountingCalories.Pages
         public void Save()
         {
             if (NewFood == null)
-                return; // JS: return value is missing
-            FoodService.SaveFood(NewFood);
+                return;
+            _FoodService.SaveFood(NewFood);
 
             NewFood = new Food();
             StateHasChanged();

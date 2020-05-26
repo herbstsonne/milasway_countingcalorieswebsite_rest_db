@@ -12,7 +12,7 @@
 
             <li>
                 <InputSelect id="name" @bind-Value="@Name">
-                    @foreach (var food in AllExistingFood)
+                    @foreach (var food in AllFoodItems)
                     {
                         <option value="@food.Name">@food.Name</option>
                     }
@@ -33,9 +33,9 @@
             <th>Name</th>
             <th>Calories</th>
         </tr>
-        @if (FoodToday.WhatIAte.Any())
+        @if (FoodToday.TotalCalories.Any())
         {
-            foreach (var foodEntry in FoodToday.WhatIAte)
+            foreach (var foodEntry in FoodToday.TotalCalories)
             {
                 <tr>
                     <td>@foodEntry.Food?.Name</td>

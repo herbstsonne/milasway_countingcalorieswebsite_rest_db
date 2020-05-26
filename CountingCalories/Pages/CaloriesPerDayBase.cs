@@ -10,11 +10,11 @@ namespace CountingCalories.Pages
 {
     public class CaloriesPerDayBase : ComponentBase
     {
+        public List<Food> AllFoodItems { get; set; }
         public string Name { get; set; }
-        public FoodInDay FoodToday { get; set; }
-        public List<Food> AllExistingFood { get; set; }
         public FoodEntry FoodEntry { get; set; }
         public string CurrentDate { get; set; }
+        public FoodInDay FoodToday { get; set; }
 
         [Inject]
         public CountCalorieService _CalorieService { get; set; }
@@ -24,14 +24,15 @@ namespace CountingCalories.Pages
 
         protected override void OnInitialized()
         {
-            FoodEntry = new FoodEntry() { Amount = 0, Food = new Food() };
+            AllFoodItems = _FoodService.GetAllFood();
+            Name = AllFoodItems.ElementAt(0)?.Name;
             FoodToday = _CalorieService.GetFoodOfDay(DateTime.Now) ??
                         new FoodInDay()
                         {
                             Day = DateTime.Now,
-                            WhatIAte = new List<FoodEntry>()
+                            TotalCalories = new List<FoodEntry>()
                         };
-            AllExistingFood = _FoodService.GetAllFood();
+            FoodEntry = new FoodEntry() { Amount = 0, Food = new Food() };
             CurrentDate = DateTime.Now.ToShortDateString();
 
             base.OnInitialized();
@@ -39,9 +40,9 @@ namespace CountingCalories.Pages
 
         public void AddFoodEntry()
         {
-            FoodEntry.Food = AllExistingFood.FirstOrDefault(f => f.Name.Equals(Name));
+            FoodEntry.Food = AllFoodItems.FirstOrDefault(f => f.Name.Equals(Name));
             FoodEntry.Calories = CalculateCalories(FoodEntry);
-            FoodToday.WhatIAte.Add(FoodEntry);
+            FoodToday.TotalCalories.Add(FoodEntry);
             FoodEntry = new FoodEntry() { Amount = 0, Food = new Food() };
 
             StateHasChanged();
@@ -50,7 +51,7 @@ namespace CountingCalories.Pages
         public int SumUpCaloriesOfToday()
         {
             var sum = 0;
-            foreach (var e in FoodToday.WhatIAte)
+            foreach (var e in FoodToday.TotalCalories)
             {
                 sum += e.Calories;
             }

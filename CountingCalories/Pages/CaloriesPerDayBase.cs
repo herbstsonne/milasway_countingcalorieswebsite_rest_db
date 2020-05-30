@@ -25,7 +25,8 @@ namespace CountingCalories.Pages
         protected override void OnInitialized()
         {
             AllFoodItems = _FoodService.GetAllFood();
-            Name = AllFoodItems.ElementAt(0)?.Name;
+            if(AllFoodItems.Any())
+                Name = AllFoodItems.ElementAt(0)?.Name;
             FoodToday = _CalorieService.GetFoodOfDay(DateTime.Now) ??
                         new FoodInDay()
                         {

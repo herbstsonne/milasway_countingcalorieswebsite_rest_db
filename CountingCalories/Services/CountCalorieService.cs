@@ -7,7 +7,7 @@ namespace CountingCalories.Services
 {
     public class CountCalorieService
     {
-        public List<FoodInDay> allFoodInDays;
+        private List<FoodInDay> allFoodInDays;
 
         public CountCalorieService()
         {

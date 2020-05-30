@@ -5,7 +5,7 @@ namespace CountingCalories.Services
 {
     public class FoodService
     {
-        public List<Food> allFood { get; set; }
+        private List<Food> allFood;
 
         public FoodService()
         {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
-using CountingCalories.Models;
-using CountingCalories.Services;
+using CountingCalories.UI.Models;
+using CountingCalories.UI.Services;
 
-namespace CountingCalories.Pages
+namespace CountingCalories.UI.Pages
 {
     public class FoodOverviewBase : ComponentBase
     {

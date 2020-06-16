@@ -1,5 +1,4 @@
-﻿
-namespace CountingCalories.Models
+﻿namespace CountingCalories.UI.Models
 {
     public class FoodEntry
     {

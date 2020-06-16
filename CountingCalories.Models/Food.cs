@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CountingCalories.Models
+namespace CountingCalories.UI.Models
 {
     public class Food
     {

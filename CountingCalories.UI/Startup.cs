@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CountingCalories.Services;
+using CountingCalories.UI.Services;
 
-namespace CountingCalories
+namespace CountingCalories.UI
 {
     public class Startup
     {

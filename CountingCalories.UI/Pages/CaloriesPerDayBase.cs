@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
-using CountingCalories.Models;
-using CountingCalories.Services;
+using CountingCalories.UI.Services;
+using CountingCalories.UI.Models;
 
-
-namespace CountingCalories.Pages
+namespace CountingCalories.UI.Pages
 {
     public class CaloriesPerDayBase : ComponentBase
     {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CountingCalories.Api.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,7 @@ namespace CountingCalories.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //"Data Source=(localdb)\\.;Initial Catalog=CountingCaloriesDb;Integrated Security=True"
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

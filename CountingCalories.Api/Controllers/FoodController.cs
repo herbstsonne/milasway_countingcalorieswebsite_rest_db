@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CountingCalories.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CountingCalories.Api.Controllers
@@ -12,16 +13,16 @@ namespace CountingCalories.Api.Controllers
     {
         // GET: api/<FoodController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Food> Get()
         {
-            return new string[] { "value1", "value2" };
+            return null;
         }
 
         // GET api/<FoodController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Food Get(int id)
         {
-            return "value";
+            return null;
         }
 
         // POST api/<FoodController>

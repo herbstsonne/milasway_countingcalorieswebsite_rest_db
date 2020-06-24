@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CountingCalories.Models\CountingCalories.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="countingcalories.db">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

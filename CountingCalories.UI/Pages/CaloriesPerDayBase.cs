@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Components;
 using CountingCalories.UI.Services;
 using CountingCalories.UI.Models;
+using System.Threading.Tasks;
 
 namespace CountingCalories.UI.Pages
 {
@@ -23,17 +24,23 @@ namespace CountingCalories.UI.Pages
 
         protected override void OnInitialized()
         {
-            AllFoodItems = _FoodService.GetAllFood();
-            if(AllFoodItems.Any())
-                Name = AllFoodItems.ElementAt(0)?.Name;
+            FoodEntry = new FoodEntry() { Amount = 0, Food = new Food() };
             FoodToday = _CalorieService.GetFoodOfDay(DateTime.Now) ??
                         new FoodInDay()
                         {
                             Day = DateTime.Now,
                             TotalCalories = new List<FoodEntry>()
                         };
-            FoodEntry = new FoodEntry() { Amount = 0, Food = new Food() };
             CurrentDate = DateTime.Now.ToShortDateString();
+            AllFoodItems = new List<Food>();
+            base.OnInitialized();
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            AllFoodItems = await _FoodService.GetAllFood();
+            if(AllFoodItems.Any())
+                Name = AllFoodItems.ElementAt(0)?.Name;
 
             base.OnInitialized();
         }

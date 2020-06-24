@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using CountingCalories.UI.Models;
 using CountingCalories.UI.Services;
+using System.Threading.Tasks;
 
 namespace CountingCalories.UI.Pages
 {
@@ -10,11 +11,11 @@ namespace CountingCalories.UI.Pages
         [Inject]
         public FoodService _FoodService { get; set; }
 
-        public List<Food> allFood;
+        public List<Food> allFood = new List<Food>();
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            allFood = _FoodService.GetAllFood();
+            allFood = await _FoodService.GetAllFood();
             base.OnInitialized();
         }
     }

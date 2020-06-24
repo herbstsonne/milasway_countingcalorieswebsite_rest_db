@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CountingCalories.UI.Models;
+using EFGetStarted;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CountingCalories.Api.Controllers
@@ -11,29 +10,39 @@ namespace CountingCalories.Api.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
+        private CountingCaloriesContext _db;
+
+        public FoodController(CountingCaloriesContext db)
+        {
+            _db = db;
+        }
+
         // GET: api/<FoodController>
         [HttpGet]
         public IEnumerable<Food> Get()
         {
-            return null;
+            var allFood = from f in _db.Food select f;
+            return allFood;
         }
 
         // GET api/<FoodController>/5
-        [HttpGet("{id}")]
-        public Food Get(int id)
+        [HttpGet("{name}")]
+        public Food Get(string name)
         {
-            return null;
+            return _db.Food.FirstOrDefault(f => f.Name == name);
         }
 
         // POST api/<FoodController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Food food)
         {
+            _db.Food.Add(food);
+            _db.SaveChanges();
         }
 
         // PUT api/<FoodController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, Food food)
         {
         }
 

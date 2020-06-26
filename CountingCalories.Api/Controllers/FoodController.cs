@@ -40,16 +40,21 @@ namespace CountingCalories.Api.Controllers
             _db.SaveChanges();
         }
 
-        // PUT api/<FoodController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, Food food)
+        // PUT api/<FoodController>
+        [HttpPut]
+        public void Put(List<Food> allFood)
         {
+            _db.Food.UpdateRange(allFood);
+            _db.SaveChanges();
         }
 
         // DELETE api/<FoodController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var food = _db.Food.Find(id);
+            _db.Food.Remove(food);
+            _db.SaveChanges();
         }
     }
 }

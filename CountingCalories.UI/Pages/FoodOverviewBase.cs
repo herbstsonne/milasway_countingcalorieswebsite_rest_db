@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using CountingCalories.UI.Models;
 using CountingCalories.UI.Services;
 using System.Threading.Tasks;
+using System;
 
 namespace CountingCalories.UI.Pages
 {
@@ -17,6 +18,26 @@ namespace CountingCalories.UI.Pages
         {
             allFood = await _FoodService.GetAllFood();
             base.OnInitialized();
+        }
+        public void SaveChanges()
+        {
+            _FoodService.Update(allFood);
+            StateHasChanged();
+        }
+
+        public async void DeleteFood(Food food)
+        {
+            try
+            {
+                await _FoodService.Delete(food);
+                
+                allFood.Remove(food);
+                StateHasChanged();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

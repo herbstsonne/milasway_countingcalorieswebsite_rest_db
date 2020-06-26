@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,18 +25,32 @@ namespace CountingCalories.UI.Services
         public void SaveFood(Food food)
         {
             allFood.Add(food);
-            //RestAPI Call
-            var json = JsonConvert.SerializeObject(food);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            _HttpClient.PostAsync("/api/food", data);
+            try
+            {
+                var json = JsonConvert.SerializeObject(food);
+                var data = new StringContent(json, Encoding.UTF8, "application/json");
+                _HttpClient.PostAsync("/api/food", data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         public async Task<List<Food>> GetAllFood()
         {
-            var response = await _HttpClient.GetAsync("/api/food");
-            var content = await response.Content.ReadAsStringAsync();
-            var allFood = JsonConvert.DeserializeObject<List<Food>>(content);
-            return allFood;
+            try
+            {
+                var response = await _HttpClient.GetAsync("/api/food");
+                var content = await response.Content.ReadAsStringAsync();
+                var allFood = JsonConvert.DeserializeObject<List<Food>>(content);
+                return allFood;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return null;
         }
     }
 }

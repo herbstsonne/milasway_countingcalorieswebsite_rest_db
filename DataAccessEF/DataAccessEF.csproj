@@ -18,10 +18,4 @@
     <ProjectReference Include="..\CountingCalories.Models\CountingCalories.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="countingcalories.db">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

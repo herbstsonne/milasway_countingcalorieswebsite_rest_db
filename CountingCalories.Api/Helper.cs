@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CountingCalories.Api
 {
@@ -6,7 +7,11 @@ namespace CountingCalories.Api
     {
         public static string GetPathOfEntityFrameworkProject(IWebHostEnvironment appHost)
         {
-            return appHost.ContentRootPath.Replace("CountingCalories.Api", "DataAccessEF");
+            var path = appHost.ContentRootPath.Replace("CountingCalories.Api", "DataAccessEF");
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                return path + "/";
+            else
+                return path + @"\";
         }
     }
 }

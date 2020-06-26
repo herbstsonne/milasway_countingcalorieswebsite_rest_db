@@ -26,7 +26,7 @@ namespace CountingCalories.Api
             services.AddControllers();
             services.AddEntityFrameworkSqlite()
              .AddDbContext<CountingCaloriesContext>(
-                 options => { options.UseSqlite(@$"Data Source={Helper.GetPathOfEntityFrameworkProject(_appHost)}\countingcalories.db"); });
+                 options => { options.UseSqlite(@$"Data Source={Helper.GetPathOfEntityFrameworkProject(_appHost)}countingcalories.db"); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

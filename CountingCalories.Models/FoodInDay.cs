@@ -8,7 +8,7 @@ namespace CountingCalories.UI.Models
     public class FoodInDay
     {
         public int Id { get; set; }
-        public List<FoodEntry> TotalCalories { get; set; }
-        public DateTime Day { get; set; }
+        public List<FoodEntry> AllFoodEntries { get; set; }
+        public string Day { get; set; }
     }
 }

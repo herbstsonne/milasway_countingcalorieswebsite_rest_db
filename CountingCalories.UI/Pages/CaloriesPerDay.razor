@@ -4,7 +4,7 @@
 
 <h3>Counting Calories at @CurrentDate</h3>
 
-<EditForm Model="@FoodEntry">
+<EditForm Model="@ViewFoodEntry">
 
     <div class="row">
         <ul>
@@ -21,7 +21,7 @@
             <li>
                 <label>
                     Amount in g
-                    <InputNumber id="amount" @bind-Value="FoodEntry.Amount" />
+                    <InputNumber id="amount" @bind-Value="ViewFoodEntry.Amount" />
                 </label>
             </li>
             <li><a class="btn btn-primary" @onclick="AddFoodEntry">Add entry</a></li>
@@ -33,12 +33,12 @@
             <th>Name</th>
             <th>Calories</th>
         </tr>
-        @if (FoodToday.TotalCalories.Any())
+        @if (FoodToday.AllFoodEntries.Any())
         {
-            foreach (var foodEntry in FoodToday.TotalCalories)
+            foreach (var foodEntry in FoodToday.AllFoodEntries)
             {
                 <tr>
-                    <td>@foodEntry.Food?.Name</td>
+                    <td>@foodEntry.FoodName</td>
                     <td>@foodEntry.Calories</td>
                 </tr>
              }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,15 +19,20 @@ namespace CountingCalories.UI.Services
             _httpClient = httpClient;
         }
 
-        public void AddFoodOfDay(FoodInDay food)
+        public void AddFoodOfDay(FoodInDay food, List<FoodEntry> foodEntries)
         {
-            var data = JsonConvert.SerializeObject(food);
-            var content = new StringContent(data, Encoding.UTF8, "application/json");
+            var dataFoodEntry = JsonConvert.SerializeObject(foodEntries);
+            var contentFoodEntry = new StringContent(dataFoodEntry, Encoding.UTF8, "application/json");
+            _httpClient.PostAsync($"api/countcalorie", contentFoodEntry);
+
+            var dataFood = JsonConvert.SerializeObject(food);
+            var content = new StringContent(dataFood, Encoding.UTF8, "application/json");
             _httpClient.PostAsync($"api/countcalorie/{food.Id}", content);
         }
         public async Task<FoodInDay> GetFoodOfDay(DateTime date)
         {
-            var data = await _httpClient.GetAsync($"api/countcalorie");
+            var datestring = date.ToString("dd.MM.yyyy");
+            var data = await _httpClient.GetAsync($"api/countcalorie/{datestring}");
             return JsonConvert.DeserializeObject<FoodInDay>(await data.Content.ReadAsStringAsync());
         }
     }

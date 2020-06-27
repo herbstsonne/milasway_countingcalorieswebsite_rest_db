@@ -21,14 +21,19 @@ namespace CountingCalories.UI
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient<FoodService>("restapi", c =>
+            var baseUri = new Uri("https://localhost:44374/");
+            services.AddHttpClient<FoodService>("restcallfood", c =>
                 {
-                    c.BaseAddress = new Uri("https://localhost:44374/");
+                    c.BaseAddress = baseUri;
                 }
             );
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<CountCalorieService>();
+            services.AddHttpClient<CountCalorieService>("restcallcountcalorie", c =>
+                {
+                    c.BaseAddress = baseUri;
+                }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

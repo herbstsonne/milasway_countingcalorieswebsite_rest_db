@@ -25,10 +25,9 @@ namespace CountingCalories.UI.Pages
         protected override void OnInitialized()
         {
             FoodEntry = new FoodEntry() { Amount = 0, Food = new Food() };
-            FoodToday = _CalorieService.GetFoodOfDay(DateTime.Now) ??
-                        new FoodInDay()
+            FoodToday = new FoodInDay()
                         {
-                            Day = DateTime.Now,
+                            Day = DateTime.Now.Date,
                             TotalCalories = new List<FoodEntry>()
                         };
             CurrentDate = DateTime.Now.ToShortDateString();
@@ -42,6 +41,7 @@ namespace CountingCalories.UI.Pages
             if(AllFoodItems.Any())
                 Name = AllFoodItems.ElementAt(0)?.Name;
 
+            FoodToday = await _CalorieService.GetFoodOfDay(DateTime.Now.Date) ?? FoodToday;
             base.OnInitialized();
         }
 
@@ -50,6 +50,9 @@ namespace CountingCalories.UI.Pages
             FoodEntry.Food = AllFoodItems.FirstOrDefault(f => f.Name.Equals(Name));
             FoodEntry.Calories = CalculateCalories(FoodEntry);
             FoodToday.TotalCalories.Add(FoodEntry);
+
+            _CalorieService.AddFoodOfDay(FoodToday);
+
             FoodEntry = new FoodEntry() { Amount = 0, Food = new Food() };
 
             StateHasChanged();

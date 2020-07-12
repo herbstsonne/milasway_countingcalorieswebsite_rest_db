@@ -9,16 +9,16 @@ namespace CountingCalories.UI.ViewModels
 {
     public class ViewFoodEntry
     {
-        private FoodEntry _foodEntry;
-        private List<Food> _allFood;
+        private FoodEntryEntity _foodEntry;
+        private List<FoodEntity> _allFood;
 
-        public ViewFoodEntry(FoodEntry foodEntry, List<Food> allFood)
+        public ViewFoodEntry(FoodEntryEntity foodEntry, List<FoodEntity> allFood)
         {
             _foodEntry = foodEntry;
             _allFood = allFood;
         }
 
-        public Food Food
+        public FoodEntity Food
         {
             get {
                 return _allFood.FirstOrDefault(f => f.Id == _foodEntry.FoodId);

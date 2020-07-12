@@ -11,12 +11,12 @@ namespace CountingCalories.UI.Pages
 {
     public class CaloriesPerDayBase : ComponentBase
     {
-        public List<Food> AllFoodItems { get; set; }
+        public List<FoodEntity> AllFoodItems { get; set; }
         public string Name { get; set; }
-        private FoodEntry FoodEntry { get; set; }
+        private FoodEntryEntity FoodEntry { get; set; }
         public ViewFoodEntry ViewFoodEntry { get; set; }
         public string CurrentDate { get; set; }
-        public FoodPerDay FoodToday { get; set; }
+        public FoodPerDayEntity FoodToday { get; set; }
 
         [Inject]
         public CountCalorieService _CalorieService { get; set; }
@@ -26,14 +26,14 @@ namespace CountingCalories.UI.Pages
 
         protected override void OnInitialized()
         {
-            FoodEntry = new FoodEntry() { Amount = 0, FoodId = 0 };
-            FoodToday = new FoodPerDay()
+            FoodEntry = new FoodEntryEntity() { Amount = 0, FoodId = 0 };
+            FoodToday = new FoodPerDayEntity()
                         {
                             Day = DateTime.Now.Date.ToString("dd.MM.yyyy"),
-                            AllFoodEntries = new List<FoodEntry>()
+                            AllFoodEntries = new List<FoodEntryEntity>()
                         };
             CurrentDate = DateTime.Now.ToShortDateString();
-            AllFoodItems = new List<Food>();
+            AllFoodItems = new List<FoodEntity>();
             ViewFoodEntry = new ViewFoodEntry(FoodEntry, AllFoodItems);
             base.OnInitialized();
         }
@@ -50,16 +50,24 @@ namespace CountingCalories.UI.Pages
             base.OnInitialized();
         }
 
-        public void AddFoodEntry()
+        public async Task AddFoodEntry()
         {
             ViewFoodEntry.Food = AllFoodItems.FirstOrDefault(f => f.Name.Equals(Name));
             ViewFoodEntry.Calories = CalculateCalories(ViewFoodEntry);
             FoodToday.AllFoodEntries.Add(FoodEntry);
             FoodEntry.FoodInDayId = FoodToday.Id;
 
-            _CalorieService.AddFoodOfDay(FoodToday, FoodToday.AllFoodEntries);
+            var entry = await _CalorieService.GetFoodOfDay(DateTime.Now);
+            if (entry != null)
+            {
+                //put impl
+            }
+            else
+            {
+                _CalorieService.AddFoodOfDay(FoodToday, FoodToday.AllFoodEntries);
+            }
 
-            FoodEntry = new FoodEntry() { Amount = 0, FoodId = 0 };
+            FoodEntry = new FoodEntryEntity() { Amount = 0, FoodId = 0 };
             ViewFoodEntry = new ViewFoodEntry(FoodEntry, AllFoodItems);
 
             StateHasChanged();

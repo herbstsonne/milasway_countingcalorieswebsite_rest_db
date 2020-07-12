@@ -20,11 +20,11 @@ namespace CountingCalories.Api.Controllers
 
         //api/countcalorie/dd.mm.yyyy
         [HttpGet("{date}")]
-        public FoodPerDay Get(string date)
+        public FoodPerDayEntity Get(string date)
         {
             var foodInDay = _db.FoodInDays.FirstOrDefault(f => f.Day.Equals(date));
             if (foodInDay == null)
-                return new FoodPerDay() { AllFoodEntries = new List<FoodEntry>(), Day = DateTime.Now.ToString("dd.MM.yyyy") };
+                return new FoodPerDayEntity() { AllFoodEntries = new List<FoodEntryEntity>(), Day = DateTime.Now.ToString("dd.MM.yyyy") };
             var foodEntries = _db.FoodEntries.AsEnumerable().Where(e => e.FoodInDayId == foodInDay.Id).ToList();           
             foodInDay.AllFoodEntries = foodEntries;
             return foodInDay;
@@ -32,7 +32,7 @@ namespace CountingCalories.Api.Controllers
 
         //api/countcalorie/id
         [HttpPost("{id}")]
-        public void Post(FoodPerDay food)
+        public void Post(FoodPerDayEntity food)
         {
             _db.FoodInDays.Add(food);
             _db.SaveChanges();
@@ -40,7 +40,7 @@ namespace CountingCalories.Api.Controllers
         
         //api/countcalorie
         [HttpPost]
-        public void Post(List<FoodEntry> foodEntries)
+        public void Post(List<FoodEntryEntity> foodEntries)
         {
             _db.FoodEntries.AddRange(foodEntries);
             _db.SaveChanges();

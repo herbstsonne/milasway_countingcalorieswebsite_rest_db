@@ -19,7 +19,7 @@ namespace CountingCalories.Api.Controllers
 
         // GET: api/<FoodController>
         [HttpGet]
-        public IEnumerable<Food> Get()
+        public IEnumerable<FoodEntity> Get()
         {
             var allFood = from f in _db.Food select f;
             return allFood;
@@ -27,14 +27,14 @@ namespace CountingCalories.Api.Controllers
 
         // GET api/<FoodController>/5
         [HttpGet("{name}")]
-        public Food Get(string name)
+        public FoodEntity Get(string name)
         {
             return _db.Food.FirstOrDefault(f => f.Name == name);
         }
 
         // POST api/<FoodController>
         [HttpPost]
-        public void Post(Food food)
+        public void Post(FoodEntity food)
         {
             _db.Food.Add(food);
             _db.SaveChanges();
@@ -42,7 +42,7 @@ namespace CountingCalories.Api.Controllers
 
         // PUT api/<FoodController>
         [HttpPut]
-        public void Put(List<Food> allFood)
+        public void Put(List<FoodEntity> allFood)
         {
             _db.Food.UpdateRange(allFood);
             _db.SaveChanges();

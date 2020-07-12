@@ -9,8 +9,8 @@ namespace EFGetStarted
         {
         }
 
-        public DbSet<Food> Food { get; set; }
-        public DbSet<FoodEntry> FoodEntries { get; set; }
-        public DbSet<FoodPerDay> FoodInDays { get; set; }
+        public DbSet<FoodEntity> Food { get; set; }
+        public DbSet<FoodEntryEntity> FoodEntries { get; set; }
+        public DbSet<FoodPerDayEntity> FoodInDays { get; set; }
     }
 }

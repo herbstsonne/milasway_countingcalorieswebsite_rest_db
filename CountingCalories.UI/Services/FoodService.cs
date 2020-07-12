@@ -15,15 +15,15 @@ namespace CountingCalories.UI.Services
         [Inject]
         public HttpClient _HttpClient { get; set; }
 
-        private List<Food> allFood;
+        private List<FoodEntity> allFood;
 
         public FoodService(HttpClient httpClient)
         {
-            allFood = new List<Food>();
+            allFood = new List<FoodEntity>();
             _HttpClient = httpClient;
         }
 
-        public void SaveFood(Food food)
+        public void SaveFood(FoodEntity food)
         {
             allFood.Add(food);
             try
@@ -38,13 +38,13 @@ namespace CountingCalories.UI.Services
             }
         }
 
-        public async Task<List<Food>> GetAllFood()
+        public async Task<List<FoodEntity>> GetAllFood()
         {
             try
             {
                 var response = await _HttpClient.GetAsync("/api/food");
                 var content = await response.Content.ReadAsStringAsync();
-                var allFood = JsonConvert.DeserializeObject<List<Food>>(content);
+                var allFood = JsonConvert.DeserializeObject<List<FoodEntity>>(content);
                 return allFood;
             }
             catch(Exception e)
@@ -54,7 +54,7 @@ namespace CountingCalories.UI.Services
             return null;
         }
 
-        public async Task Delete(Food food)
+        public async Task Delete(FoodEntity food)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace CountingCalories.UI.Services
             }
         }
 
-        public void Update(List<Food> allFood)
+        public void Update(List<FoodEntity> allFood)
         {
             try
             {

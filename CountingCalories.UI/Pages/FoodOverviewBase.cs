@@ -12,7 +12,7 @@ namespace CountingCalories.UI.Pages
         [Inject]
         public FoodService _FoodService { get; set; }
 
-        public List<Food> allFood = new List<Food>();
+        public List<FoodEntity> allFood = new List<FoodEntity>();
 
         protected override async Task OnInitializedAsync()
         {
@@ -25,7 +25,7 @@ namespace CountingCalories.UI.Pages
             StateHasChanged();
         }
 
-        public async void DeleteFood(Food food)
+        public async void DeleteFood(FoodEntity food)
         {
             try
             {

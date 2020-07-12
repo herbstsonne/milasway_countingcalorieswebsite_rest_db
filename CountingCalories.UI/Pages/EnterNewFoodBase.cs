@@ -6,19 +6,19 @@ namespace CountingCalories.UI.Pages
 {
     public class EnterNewFoodBase : ComponentBase
     {
-        public Food NewFood;
+        public FoodEntity NewFood;
 
         [Inject]
         public FoodService _FoodService { get; set; }
 
         public EnterNewFoodBase()
         {
-            NewFood = new Food();
+            NewFood = new FoodEntity();
         }
 
         protected override void OnInitialized()
         {
-            NewFood = new Food();
+            NewFood = new FoodEntity();
             base.OnInitialized();
         }
 
@@ -28,7 +28,7 @@ namespace CountingCalories.UI.Pages
                 return;
             _FoodService.SaveFood(NewFood);
 
-            NewFood = new Food();
+            NewFood = new FoodEntity();
             StateHasChanged();
         }
     }

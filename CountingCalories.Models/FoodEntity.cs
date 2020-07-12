@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace CountingCalories.UI.Models
 {
-    public class FoodPerDay
+    public class FoodEntity
     {
         public int Id { get; set; }
-        public List<FoodEntry> AllFoodEntries { get; set; }
-        public string Day { get; set; }
+        public string Name { get; set; }
+        public int CaloriesPer100g { get; set; }
     }
 }

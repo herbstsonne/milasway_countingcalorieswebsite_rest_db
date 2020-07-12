@@ -1,6 +1,6 @@
 ﻿namespace CountingCalories.UI.Models
 {
-    public class FoodEntry
+    public class FoodEntryEntity
     {
         public int FoodInDayId { get; set; }
         public int Id { get; set; }

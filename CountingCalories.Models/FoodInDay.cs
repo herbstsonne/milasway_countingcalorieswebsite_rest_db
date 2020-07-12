@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CountingCalories.UI.Models
 {
-    public class FoodInDay
+    public class FoodPerDay
     {
         public int Id { get; set; }
         public List<FoodEntry> AllFoodEntries { get; set; }

@@ -16,7 +16,7 @@ namespace CountingCalories.UI.Pages
         private FoodEntry FoodEntry { get; set; }
         public ViewFoodEntry ViewFoodEntry { get; set; }
         public string CurrentDate { get; set; }
-        public FoodInDay FoodToday { get; set; }
+        public FoodPerDay FoodToday { get; set; }
 
         [Inject]
         public CountCalorieService _CalorieService { get; set; }
@@ -27,7 +27,7 @@ namespace CountingCalories.UI.Pages
         protected override void OnInitialized()
         {
             FoodEntry = new FoodEntry() { Amount = 0, FoodId = 0 };
-            FoodToday = new FoodInDay()
+            FoodToday = new FoodPerDay()
                         {
                             Day = DateTime.Now.Date.ToString("dd.MM.yyyy"),
                             AllFoodEntries = new List<FoodEntry>()

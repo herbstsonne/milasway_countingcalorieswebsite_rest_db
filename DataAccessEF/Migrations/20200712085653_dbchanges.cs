@@ -2,7 +2,7 @@
 
 namespace DataAccessEF.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class dbchanges : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,23 +43,24 @@ namespace DataAccessEF.Migrations
                     FoodId = table.Column<int>(nullable: false),
                     FoodName = table.Column<string>(nullable: true),
                     Amount = table.Column<int>(nullable: false),
-                    Calories = table.Column<int>(nullable: false)
+                    Calories = table.Column<int>(nullable: false),
+                    FoodPerDayId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FoodEntries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FoodEntries_FoodInDays_FoodInDayId",
-                        column: x => x.FoodInDayId,
+                        name: "FK_FoodEntries_FoodInDays_FoodPerDayId",
+                        column: x => x.FoodPerDayId,
                         principalTable: "FoodInDays",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FoodEntries_FoodInDayId",
+                name: "IX_FoodEntries_FoodPerDayId",
                 table: "FoodEntries",
-                column: "FoodInDayId");
+                column: "FoodPerDayId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

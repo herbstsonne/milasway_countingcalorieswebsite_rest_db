@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CountingCalories.UI.Models;
 using EFGetStarted;
 using Microsoft.AspNetCore.Mvc;
@@ -21,18 +20,19 @@ namespace CountingCalories.Api.Controllers
 
         //api/countcalorie/dd.mm.yyyy
         [HttpGet("{date}")]
-        public FoodInDay Get(string date)
+        public FoodPerDay Get(string date)
         {
             var foodInDay = _db.FoodInDays.FirstOrDefault(f => f.Day.Equals(date));
-            var foodEntries = _db.FoodEntries.AsEnumerable().Where(e => e.FoodInDayId == foodInDay.Id).ToList();
-            if(foodInDay != null)
-                foodInDay.AllFoodEntries = foodEntries;
+            if (foodInDay == null)
+                return new FoodPerDay() { AllFoodEntries = new List<FoodEntry>(), Day = DateTime.Now.ToString("dd.MM.yyyy") };
+            var foodEntries = _db.FoodEntries.AsEnumerable().Where(e => e.FoodInDayId == foodInDay.Id).ToList();           
+            foodInDay.AllFoodEntries = foodEntries;
             return foodInDay;
         }
 
         //api/countcalorie/id
         [HttpPost("{id}")]
-        public void Post(FoodInDay food)
+        public void Post(FoodPerDay food)
         {
             _db.FoodInDays.Add(food);
             _db.SaveChanges();

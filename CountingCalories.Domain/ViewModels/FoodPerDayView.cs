@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CountingCalories.Domain.Entities;
+﻿using System.Collections.Generic;
 
 namespace CountingCalories.Domain.ViewModels
 {
     public class FoodPerDayView
     {
-        public List<FoodEntryEntity> AllFoodEntries { get; set; }
+        public List<FoodEntryView> AllFoodEntries { get; set; }
         public string Day { get; set; }
     }
 }

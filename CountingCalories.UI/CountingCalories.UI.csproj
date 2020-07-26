@@ -18,6 +18,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CountingCalories.Domain\CountingCalories.Domain.csproj" />
-    <ProjectReference Include="..\CountingCalories.Models\CountingCalories.Domain.csproj" />
   </ItemGroup>
 </Project>

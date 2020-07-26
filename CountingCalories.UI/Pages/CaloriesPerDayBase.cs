@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
-using CountingCalories.UI.Services;
 using System.Threading.Tasks;
-using CountingCalories.Domain.Entities;
+using CountingCalories.Domain.Services;
 using CountingCalories.Domain.ViewModels;
 
 namespace CountingCalories.UI.Pages
 {
     public class CaloriesPerDayBase : ComponentBase
     {
-        public List<FoodEntity> AllFoodItems { get; set; }
+        public List<FoodView> AllFoodItems { get; set; }
         public string Name { get; set; }
-        private FoodEntryEntity FoodEntry { get; set; }
-        public ViewFoodEntry ViewFoodEntry { get; set; }
+        protected FoodEntryView FoodEntry { get; set; }
+        //public ViewFoodEntry ViewFoodEntry { get; set; }
         public string CurrentDate { get; set; }
-        public FoodPerDayEntity FoodToday { get; set; }
+        public FoodPerDayView FoodToday { get; set; }
 
         [Inject]
         public CountCalorieService _CalorieService { get; set; }
@@ -26,15 +25,15 @@ namespace CountingCalories.UI.Pages
 
         protected override void OnInitialized()
         {
-            FoodEntry = new FoodEntryEntity() { Amount = 0, FoodId = 0 };
-            FoodToday = new FoodPerDayEntity()
+            FoodEntry = new FoodEntryView() { Amount = 0, FoodId = 0 };
+            FoodToday = new FoodPerDayView()
                         {
                             Day = DateTime.Now.Date.ToString("dd.MM.yyyy"),
-                            AllFoodEntries = new List<FoodEntryEntity>()
+                            AllFoodEntries = new List<FoodEntryView>()
                         };
             CurrentDate = DateTime.Now.ToShortDateString();
-            AllFoodItems = new List<FoodEntity>();
-            ViewFoodEntry = new ViewFoodEntry(FoodEntry, AllFoodItems);
+            AllFoodItems = new List<FoodView>();
+            //ViewFoodEntry = new ViewFoodEntry(FoodEntry, AllFoodItems);
             base.OnInitialized();
         }
 
@@ -45,30 +44,31 @@ namespace CountingCalories.UI.Pages
                 Name = AllFoodItems.ElementAt(0)?.Name;
 
             FoodToday = await _CalorieService.GetFoodOfDay(DateTime.Now.Date) ?? FoodToday;
-            ViewFoodEntry = new ViewFoodEntry(FoodEntry, AllFoodItems);
-            ViewFoodEntry.Calories = CalculateCalories(ViewFoodEntry);
-            base.OnInitialized();
+            FoodEntry = new FoodEntryView(); 
+            FoodEntry.Calories = CalculateCalories(FoodEntry);
+            await base.OnInitializedAsync();
         }
 
         public async Task AddFoodEntry()
         {
-            ViewFoodEntry.Food = AllFoodItems.FirstOrDefault(f => f.Name.Equals(Name));
-            ViewFoodEntry.Calories = CalculateCalories(ViewFoodEntry);
+            var food = AllFoodItems.FirstOrDefault(f => f.Name.Equals(Name));
+            FoodEntry.FoodName = food.Name;
+            FoodEntry.FoodId = food.FoodId;
+            FoodEntry.Calories = CalculateCalories(FoodEntry);
             FoodToday.AllFoodEntries.Add(FoodEntry);
-            FoodEntry.FoodInDayId = FoodToday.Id;
 
             var entry = await _CalorieService.GetFoodOfDay(DateTime.Now);
             if (entry != null)
             {
-                _CalorieService.UpdateFoodOfDay(entry, FoodToday.AllFoodEntries);
+                await _CalorieService.UpdateFoodOfDay(entry, FoodToday.AllFoodEntries);
             }
             else
             {
-                _CalorieService.AddFoodOfDay(FoodToday, FoodToday.AllFoodEntries);
+                await _CalorieService.AddFoodOfDay(FoodToday, FoodToday.AllFoodEntries);
             }
 
-            FoodEntry = new FoodEntryEntity() { Amount = 0, FoodId = 0 };
-            ViewFoodEntry = new ViewFoodEntry(FoodEntry, AllFoodItems);
+            FoodEntry = new FoodEntryView() { Amount = 0, FoodId = 0 };
+            //ViewFoodEntry = new ViewFoodEntry(FoodEntry, AllFoodItems);
 
             StateHasChanged();
         }
@@ -83,10 +83,11 @@ namespace CountingCalories.UI.Pages
             return sum;
         }
 
-        private int CalculateCalories(ViewFoodEntry foodEntry)
+        private int CalculateCalories(FoodEntryView foodEntry)
         {
+            var food = AllFoodItems.FirstOrDefault(f => f.Name.Equals(Name));
             var relative = foodEntry.Amount / 100.0f;
-            return (int)(relative * (foodEntry.Food?.CaloriesPer100G ?? 0.0f));
+            return (int)(relative * (food?.CaloriesPer100G ?? 0.0f));
         }
     }
 }

@@ -1,4 +1,6 @@
+using CountingCalories.Domain.Repository.Contract;
 using CountingCalories.Infrastructure;
+using CountingCalories.Infrastructure.Repository.Implementation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,16 +22,20 @@ namespace CountingCalories.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient<IFoodRepositoryDao, FoodRepositoryDao>();
+            services.AddTransient<ICountCalorieRepositoryDao, CountCalorieRepositoryDao>();
+
             services.AddEntityFrameworkSqlite()
              .AddDbContext<CountingCaloriesContext>(
-                 options => { options.UseSqlite(@$"Data Source={Helper.GetPathOfEntityFrameworkProject(_appHost)}countingcalories.db"); });
+                 (sp, options) =>
+                 {
+                     options.UseSqlite(
+                         @$"Data Source={Helper.GetPathOfEntityFrameworkProject(_appHost)}countingcalories.db"); });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

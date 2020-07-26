@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
-using CountingCalories.UI.Services;
 using System.Threading.Tasks;
 using System;
-using CountingCalories.Domain.Entities;
+using CountingCalories.Domain.Services;
+using CountingCalories.Domain.ViewModels;
 
 namespace CountingCalories.UI.Pages
 {
@@ -12,12 +12,12 @@ namespace CountingCalories.UI.Pages
         [Inject]
         public FoodService _FoodService { get; set; }
 
-        public List<FoodEntity> allFood = new List<FoodEntity>();
+        public List<FoodView> allFood = new List<FoodView>();
 
         protected override async Task OnInitializedAsync()
         {
             allFood = await _FoodService.GetAllFood();
-            base.OnInitialized();
+            await base.OnInitializedAsync();
         }
         public void SaveChanges()
         {
@@ -25,7 +25,7 @@ namespace CountingCalories.UI.Pages
             StateHasChanged();
         }
 
-        public async void DeleteFood(FoodEntity food)
+        public async void DeleteFood(FoodView food)
         {
             try
             {

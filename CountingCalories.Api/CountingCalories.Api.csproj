@@ -6,17 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CountingCalories.Domain\CountingCalories.Domain.csproj" />
     <ProjectReference Include="..\CountingCalories.Infrastructure\CountingCalories.Infrastructure.csproj" />
-    <ProjectReference Include="..\CountingCalories.Models\CountingCalories.Domain.csproj" />
-    <ProjectReference Include="..\DataAccessEF\CountingCalories.Infrastructure.csproj" />
   </ItemGroup>
 
 

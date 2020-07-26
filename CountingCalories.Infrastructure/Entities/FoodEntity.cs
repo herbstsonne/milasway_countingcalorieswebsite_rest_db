@@ -1,4 +1,4 @@
-﻿namespace CountingCalories.Domain.Entities
+﻿namespace CountingCalories.Infrastructure.Entities
 {
     public class FoodEntity
     {

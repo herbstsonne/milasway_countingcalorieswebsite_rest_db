@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using CountingCalories.Domain.Entities;
-using Microsoft.AspNetCore.Components;
+using CountingCalories.Domain.ViewModels;
 using Newtonsoft.Json;
+using Ninject;
 
-namespace CountingCalories.UI.Services
+namespace CountingCalories.Domain.Services
 {
     public class FoodService
     {
         [Inject]
         public HttpClient _HttpClient { get; set; }
 
-        private List<FoodEntity> allFood;
+        private List<FoodView> allFood;
 
         public FoodService(HttpClient httpClient)
         {
-            allFood = new List<FoodEntity>();
+            allFood = new List<FoodView>();
             _HttpClient = httpClient;
         }
 
-        public void SaveFood(FoodEntity food)
+        public void SaveFood(FoodView food)
         {
             allFood.Add(food);
             try
@@ -38,13 +37,13 @@ namespace CountingCalories.UI.Services
             }
         }
 
-        public async Task<List<FoodEntity>> GetAllFood()
+        public async Task<List<FoodView>> GetAllFood()
         {
             try
             {
-                var response = await _HttpClient.GetAsync("/api/food");
+                var response = await _HttpClient.GetAsync("api/food");
                 var content = await response.Content.ReadAsStringAsync();
-                var allFood = JsonConvert.DeserializeObject<List<FoodEntity>>(content);
+                var allFood = JsonConvert.DeserializeObject<List<FoodView>>(content);
                 return allFood;
             }
             catch(Exception e)
@@ -54,11 +53,11 @@ namespace CountingCalories.UI.Services
             return null;
         }
 
-        public async Task Delete(FoodEntity food)
+        public async Task Delete(FoodView food)
         {
             try
             {
-                var response = await _HttpClient.DeleteAsync($"api/food/{food.Id}");
+                var response = await _HttpClient.DeleteAsync($"api/food/{food.FoodId}");
             }
             catch (Exception e)
             {
@@ -66,7 +65,7 @@ namespace CountingCalories.UI.Services
             }
         }
 
-        public void Update(List<FoodEntity> allFood)
+        public void Update(List<FoodView> allFood)
         {
             try
             {

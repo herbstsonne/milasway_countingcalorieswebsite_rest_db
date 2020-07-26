@@ -1,10 +1,10 @@
 using System;
+using CountingCalories.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CountingCalories.UI.Services;
 
 namespace CountingCalories.UI
 {

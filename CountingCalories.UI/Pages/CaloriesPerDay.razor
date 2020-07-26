@@ -4,7 +4,7 @@
 
 <h3>Counting Calories at @CurrentDate</h3>
 
-<EditForm Model="@ViewFoodEntry">
+<EditForm Model="@FoodEntry">
 
     <div class="row">
         <ul>
@@ -21,7 +21,7 @@
             <li>
                 <label>
                     Amount in g
-                    <InputNumber id="amount" @bind-Value="ViewFoodEntry.Amount" />
+                    <InputNumber id="amount" @bind-Value="FoodEntry.Amount" />
                 </label>
             </li>
             <li><a class="btn btn-primary" @onclick="AddFoodEntry">Add entry</a></li>

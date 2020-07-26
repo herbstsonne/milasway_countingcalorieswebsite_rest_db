@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CountingCalories.Domain.Entities;
-using CountingCalories.Infrastructure;
+﻿using System.Collections.Generic;
+using CountingCalories.Domain.Repository.Contract;
+using CountingCalories.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CountingCalories.Api.Controllers
@@ -11,44 +9,32 @@ namespace CountingCalories.Api.Controllers
     [ApiController]
     public class CountCalorieController : Controller
     {
-        private CountingCaloriesContext _db;
+        private readonly ICountCalorieRepositoryDao _dao;
 
-        public CountCalorieController(CountingCaloriesContext db)
+        public CountCalorieController(ICountCalorieRepositoryDao dao)
         {
-            _db = db;
+            _dao = dao;
         }
 
-        //api/countcalorie/dd.mm.yyyy
+        //api/countcalorie/dd.MM.yyyy
         [HttpGet("{date}")]
-        public FoodPerDayEntity Get(string date)
+        public FoodPerDayView Get(string date)
         {
-            var foodInDay = _db.FoodInDays.FirstOrDefault(f => f.Day.Equals(date));
-            if (foodInDay == null)
-                return null;
-            var foodEntries = _db.FoodEntries.AsEnumerable().Where(e => e.FoodInDayId == foodInDay.Id).ToList();           
-            foodInDay.AllFoodEntries = foodEntries;
-            return foodInDay;
+            return _dao.GetFoodPerDayByDate(date);
         }
 
-        //api/countcalorie/id
-        [HttpPost("{id}")]
-        public void Post(FoodPerDayEntity food)
+        //api/countcalorie
+        [HttpPost("{foodPerDay}")]
+        public void Post(FoodPerDayView foodPerDay)
         {
-            _db.FoodInDays.Add(food);
-            _db.SaveChanges();
+            _dao.AddFoodPerDay(foodPerDay);
         }
 
-        //api/countcalorie/id
-        [HttpPut("{id}")]
-        public void Put(List<FoodEntryEntity> foodEntries)
+        //api/countcalorie
+        [HttpPut]
+        public void Put(Dictionary<FoodEntryView, string> foodEntries)
         {
-            if (!foodEntries.Any())
-                return;
-            var foodInDay = _db.FoodInDays.FirstOrDefault(f => f.Day == DateTime.Now.Date.ToString("dd.MM.yyyy"));//Repo!! Struktur refactorn
-            if(foodInDay == null)
-                return;
-            foodInDay.AllFoodEntries = foodEntries;
-            _db.SaveChanges();
+            _dao.AddFoodEntries(foodEntries);
         }
     }
 }

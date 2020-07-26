@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using CountingCalories.Domain.Entities;
-using CountingCalories.Infrastructure;
+using System.Threading.Tasks;
+using CountingCalories.Domain.Repository.Contract;
+using CountingCalories.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CountingCalories.Api.Controllers
@@ -10,51 +10,46 @@ namespace CountingCalories.Api.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
-        private CountingCaloriesContext _db;
+        private readonly IFoodRepositoryDao _dao;
 
-        public FoodController(CountingCaloriesContext db)
+        public FoodController(IFoodRepositoryDao dao)
         {
-            _db = db;
+            _dao = dao;
         }
 
         // GET: api/<FoodController>
         [HttpGet]
-        public IEnumerable<FoodEntity> Get()
+        public IEnumerable<FoodView> Get()
         {
-            var allFood = from f in _db.Food select f;
-            return allFood;
+            return _dao.GetAllFood();
         }
 
         // GET api/<FoodController>/5
         [HttpGet("{name}")]
-        public FoodEntity Get(string name)
+        public FoodView Get(string name)
         {
-            return _db.Food.FirstOrDefault(f => f.Name == name);
+            return _dao.GetFoodByName(name);
         }
 
         // POST api/<FoodController>
         [HttpPost]
-        public void Post(FoodEntity food)
+        public void Post(FoodView food)
         {
-            _db.Food.Add(food);
-            _db.SaveChanges();
+            _dao.AddFood(food);
         }
 
         // PUT api/<FoodController>
         [HttpPut]
-        public void Put(List<FoodEntity> allFood)
+        public void Put(List<FoodView> allFood)
         {
-            _db.Food.UpdateRange(allFood);
-            _db.SaveChanges();
+            _dao.UpdateAllFood(allFood);
         }
 
         // DELETE api/<FoodController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var food = _db.Food.Find(id);
-            _db.Food.Remove(food);
-            _db.SaveChanges();
+            _dao.DeleteFoodById(id);
         }
     }
 }

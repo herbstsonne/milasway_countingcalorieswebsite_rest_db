@@ -1,4 +1,4 @@
-﻿using CountingCalories.Domain.Entities;
+﻿using CountingCalories.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CountingCalories.Infrastructure
@@ -11,6 +11,6 @@ namespace CountingCalories.Infrastructure
 
         public DbSet<FoodEntity> Food { get; set; }
         public DbSet<FoodEntryEntity> FoodEntries { get; set; }
-        public DbSet<FoodPerDayEntity> FoodInDays { get; set; }
+        public DbSet<FoodPerDayEntity> FoodPerDays { get; set; }
     }
 }

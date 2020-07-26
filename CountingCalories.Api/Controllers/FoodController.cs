@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CountingCalories.UI.Models;
-using EFGetStarted;
+using CountingCalories.Domain.Entities;
+using CountingCalories.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CountingCalories.Api.Controllers

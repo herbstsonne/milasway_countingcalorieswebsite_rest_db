@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
-using CountingCalories.UI.Models;
 using CountingCalories.UI.Services;
 using System.Threading.Tasks;
 using System;
+using CountingCalories.Domain.Entities;
 
 namespace CountingCalories.UI.Pages
 {

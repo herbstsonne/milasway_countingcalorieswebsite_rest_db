@@ -1,11 +1,8 @@
-﻿using CountingCalories.UI.Models;
-using CountingCalories.UI.Services;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using CountingCalories.Domain.Entities;
 
-namespace CountingCalories.UI.ViewModels
+namespace CountingCalories.Domain.ViewModels
 {
     public class ViewFoodEntry
     {

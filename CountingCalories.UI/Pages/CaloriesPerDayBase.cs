@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using CountingCalories.UI.Services;
-using CountingCalories.UI.Models;
 using System.Threading.Tasks;
-using CountingCalories.UI.ViewModels;
+using CountingCalories.Domain.Entities;
+using CountingCalories.Domain.ViewModels;
 
 namespace CountingCalories.UI.Pages
 {
@@ -60,7 +60,7 @@ namespace CountingCalories.UI.Pages
             var entry = await _CalorieService.GetFoodOfDay(DateTime.Now);
             if (entry != null)
             {
-                //put impl
+                _CalorieService.UpdateFoodOfDay(entry, FoodToday.AllFoodEntries);
             }
             else
             {
@@ -86,7 +86,7 @@ namespace CountingCalories.UI.Pages
         private int CalculateCalories(ViewFoodEntry foodEntry)
         {
             var relative = foodEntry.Amount / 100.0f;
-            return (int)(relative * (foodEntry.Food?.CaloriesPer100g ?? 0.0f));
+            return (int)(relative * (foodEntry.Food?.CaloriesPer100G ?? 0.0f));
         }
     }
 }

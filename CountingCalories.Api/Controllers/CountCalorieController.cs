@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CountingCalories.UI.Models;
-using EFGetStarted;
+using CountingCalories.Domain.Entities;
+using CountingCalories.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CountingCalories.Api.Controllers
@@ -24,7 +24,7 @@ namespace CountingCalories.Api.Controllers
         {
             var foodInDay = _db.FoodInDays.FirstOrDefault(f => f.Day.Equals(date));
             if (foodInDay == null)
-                return new FoodPerDayEntity() { AllFoodEntries = new List<FoodEntryEntity>(), Day = DateTime.Now.ToString("dd.MM.yyyy") };
+                return null;
             var foodEntries = _db.FoodEntries.AsEnumerable().Where(e => e.FoodInDayId == foodInDay.Id).ToList();           
             foodInDay.AllFoodEntries = foodEntries;
             return foodInDay;
@@ -37,12 +37,17 @@ namespace CountingCalories.Api.Controllers
             _db.FoodInDays.Add(food);
             _db.SaveChanges();
         }
-        
-        //api/countcalorie
-        [HttpPost]
-        public void Post(List<FoodEntryEntity> foodEntries)
+
+        //api/countcalorie/id
+        [HttpPut("{id}")]
+        public void Put(List<FoodEntryEntity> foodEntries)
         {
-            _db.FoodEntries.AddRange(foodEntries);
+            if (!foodEntries.Any())
+                return;
+            var foodInDay = _db.FoodInDays.FirstOrDefault(f => f.Day == DateTime.Now.Date.ToString("dd.MM.yyyy"));//Repo!! Struktur refactorn
+            if(foodInDay == null)
+                return;
+            foodInDay.AllFoodEntries = foodEntries;
             _db.SaveChanges();
         }
     }

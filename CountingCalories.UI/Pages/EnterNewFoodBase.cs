@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-using CountingCalories.UI.Models;
+﻿using CountingCalories.Domain.Entities;
+using Microsoft.AspNetCore.Components;
 using CountingCalories.UI.Services;
 
 namespace CountingCalories.UI.Pages

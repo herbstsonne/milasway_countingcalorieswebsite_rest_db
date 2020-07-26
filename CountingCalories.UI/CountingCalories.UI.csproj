@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CountingCalories.Models\CountingCalories.Models.csproj" />
+    <ProjectReference Include="..\CountingCalories.Domain\CountingCalories.Domain.csproj" />
+    <ProjectReference Include="..\CountingCalories.Models\CountingCalories.Domain.csproj" />
   </ItemGroup>
 </Project>

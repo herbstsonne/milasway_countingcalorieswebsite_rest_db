@@ -1,9 +1,9 @@
-﻿namespace CountingCalories.UI.Models
+﻿namespace CountingCalories.Domain.Entities
 {
     public class FoodEntryEntity
     {
-        public int FoodInDayId { get; set; }
         public int Id { get; set; }
+        public int FoodInDayId { get; set; }
         //führt zu EF-Problemen, Zwischenobjekt nötig?
         //public Food Food { get; set; }
         public int FoodId { get; set; }

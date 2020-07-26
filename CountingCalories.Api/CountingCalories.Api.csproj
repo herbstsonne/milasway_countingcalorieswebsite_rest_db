@@ -13,8 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CountingCalories.Models\CountingCalories.Models.csproj" />
-    <ProjectReference Include="..\DataAccessEF\DataAccessEF.csproj" />
+    <ProjectReference Include="..\CountingCalories.Domain\CountingCalories.Domain.csproj" />
+    <ProjectReference Include="..\CountingCalories.Infrastructure\CountingCalories.Infrastructure.csproj" />
+    <ProjectReference Include="..\CountingCalories.Models\CountingCalories.Domain.csproj" />
+    <ProjectReference Include="..\DataAccessEF\CountingCalories.Infrastructure.csproj" />
   </ItemGroup>
 
 

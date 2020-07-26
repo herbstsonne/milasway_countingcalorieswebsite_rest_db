@@ -1,7 +1,7 @@
-﻿using CountingCalories.UI.Models;
+﻿using CountingCalories.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFGetStarted
+namespace CountingCalories.Infrastructure
 {
     public class CountingCaloriesContext : DbContext
     {

@@ -6,9 +6,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountingCalories.UI", "Coun
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountingCalories.Api", "..\CountingCalories.Api\CountingCalories.Api.csproj", "{D185510A-F4F7-4D8D-8292-55500867FCDC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountingCalories.Models", "..\CountingCalories.Models\CountingCalories.Models.csproj", "{61F8660C-EFC4-4117-9A19-E706A3BECFF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountingCalories.Domain", "..\CountingCalories.Domain\CountingCalories.Domain.csproj", "{61F8660C-EFC4-4117-9A19-E706A3BECFF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessEF", "..\DataAccessEF\DataAccessEF.csproj", "{E91056CA-0CA2-4A60-8D5B-DD5BEFD0D6E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountingCalories.Infrastructure", "..\CountingCalories.Infrastructure\CountingCalories.Infrastructure.csproj", "{E91056CA-0CA2-4A60-8D5B-DD5BEFD0D6E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

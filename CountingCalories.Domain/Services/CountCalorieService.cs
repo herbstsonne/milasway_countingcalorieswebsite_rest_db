@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
 using CountingCalories.Domain.ViewModels;
 using Newtonsoft.Json;
 using Ninject;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace CountingCalories.Domain.Services
 {
@@ -28,7 +30,7 @@ namespace CountingCalories.Domain.Services
 
         public async Task AddFoodOfDay(FoodPerDayView foodPerDay, List<FoodEntryView> foodEntries)
         {
-            var dataFood = JsonConvert.SerializeObject(foodPerDay);
+            var dataFood = JsonSerializer.Serialize(foodPerDay);
             var content = new StringContent(dataFood, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync($"api/countcalorie/{foodPerDay}", content);
 
@@ -37,13 +39,10 @@ namespace CountingCalories.Domain.Services
 
         public async Task UpdateFoodOfDay(FoodPerDayView foodPerDay, List<FoodEntryView> foodEntries)
         {
-            var allFoodEntriesPerDay = new Dictionary<FoodEntryView, string>();
-            foreach (var entry in foodEntries)
-            {
-                allFoodEntriesPerDay.Add(entry, foodPerDay.Day);
-            }
+            var allFoodEntriesPerDay = new Dictionary<string, List<FoodEntryView>>();
+            allFoodEntriesPerDay.Add(foodPerDay.Day, foodEntries);
 
-            var dataFoodEntry = JsonConvert.SerializeObject(allFoodEntriesPerDay);
+            var dataFoodEntry = JsonSerializer.Serialize(allFoodEntriesPerDay);
             var contentFoodEntry = new StringContent(dataFoodEntry, Encoding.UTF8, "application/json");
             var response = await _httpClient.PutAsync("api/countcalorie", contentFoodEntry);
         }

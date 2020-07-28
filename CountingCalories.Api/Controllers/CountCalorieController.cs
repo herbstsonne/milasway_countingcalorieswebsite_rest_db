@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using CountingCalories.Domain.Repository.Contract;
 using CountingCalories.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CountingCalories.Api.Controllers
 {
@@ -23,18 +26,36 @@ namespace CountingCalories.Api.Controllers
             return _dao.GetFoodPerDayByDate(date);
         }
 
-        //api/countcalorie
+        //api/countcalorie/foodperday
         [HttpPost("{foodPerDay}")]
-        public void Post(FoodPerDayView foodPerDay)
+        public IActionResult Post(FoodPerDayView foodPerDay)
         {
-            _dao.AddFoodPerDay(foodPerDay);
+            try
+            {
+                _dao.AddFoodPerDay(foodPerDay);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest();
+            }
         }
 
         //api/countcalorie
         [HttpPut]
-        public void Put(Dictionary<FoodEntryView, string> foodEntries)
+        public IActionResult Put(Dictionary<string, List<FoodEntryView>> foodEntries)
         {
-            _dao.AddFoodEntries(foodEntries);
+            try
+            {
+                _dao.AddFoodEntries(foodEntries);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest();
+            }
         }
     }
 }

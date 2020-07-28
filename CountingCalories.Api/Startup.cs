@@ -25,8 +25,8 @@ namespace CountingCalories.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IFoodRepositoryDao, FoodRepositoryDao>();
-            services.AddTransient<ICountCalorieRepositoryDao, CountCalorieRepositoryDao>();
+            services.AddScoped<IFoodRepositoryDao, FoodRepositoryDao>();
+            services.AddScoped<ICountCalorieRepositoryDao, CountCalorieRepositoryDao>();
 
             services.AddEntityFrameworkSqlite()
              .AddDbContext<CountingCaloriesContext>(

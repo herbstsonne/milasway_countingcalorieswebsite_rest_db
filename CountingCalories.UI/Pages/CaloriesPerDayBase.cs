@@ -68,7 +68,6 @@ namespace CountingCalories.UI.Pages
             }
 
             FoodEntry = new FoodEntryView() { Amount = 0, FoodId = 0 };
-            //ViewFoodEntry = new ViewFoodEntry(FoodEntry, AllFoodItems);
 
             StateHasChanged();
         }

@@ -7,6 +7,6 @@ namespace CountingCalories.Domain.Repository.Contract
     {
         FoodPerDayView GetFoodPerDayByDate(string date);
         void AddFoodPerDay(FoodPerDayView foodPerDay);
-        void AddFoodEntries(Dictionary<string, List<FoodEntryView>> foodEntries);
+        void AddFoodEntry(FoodEntryView foodEntry);
     }
 }

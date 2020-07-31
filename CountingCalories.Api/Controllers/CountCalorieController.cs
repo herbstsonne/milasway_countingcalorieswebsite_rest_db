@@ -44,11 +44,11 @@ namespace CountingCalories.Api.Controllers
 
         //api/countcalorie
         [HttpPut]
-        public IActionResult Put(Dictionary<string, List<FoodEntryView>> foodEntries)
+        public IActionResult Put(FoodEntryView foodEntry)
         {
             try
             {
-                _dao.AddFoodEntries(foodEntries);
+                _dao.AddFoodEntry(foodEntry);
                 return Ok();
             }
             catch (Exception e)

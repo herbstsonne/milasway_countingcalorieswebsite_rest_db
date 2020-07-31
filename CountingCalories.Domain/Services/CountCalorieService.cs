@@ -28,21 +28,18 @@ namespace CountingCalories.Domain.Services
             return JsonConvert.DeserializeObject<FoodPerDayView>(await data.Content.ReadAsStringAsync());
         }
 
-        public async Task AddFoodOfDay(FoodPerDayView foodPerDay, List<FoodEntryView> foodEntries)
+        public async Task AddFoodOfDay(FoodPerDayView foodPerDay, FoodEntryView foodEntryView)
         {
             var dataFood = JsonSerializer.Serialize(foodPerDay);
             var content = new StringContent(dataFood, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync($"api/countcalorie/{foodPerDay}", content);
 
-            UpdateFoodOfDay(foodPerDay, foodEntries);
+            UpdateFoodOfDay(foodPerDay, foodEntryView);
         }
 
-        public async Task UpdateFoodOfDay(FoodPerDayView foodPerDay, List<FoodEntryView> foodEntries)
+        public async Task UpdateFoodOfDay(FoodPerDayView foodPerDay, FoodEntryView foodEntryView)
         {
-            var allFoodEntriesPerDay = new Dictionary<string, List<FoodEntryView>>();
-            allFoodEntriesPerDay.Add(foodPerDay.Day, foodEntries);
-
-            var dataFoodEntry = JsonSerializer.Serialize(allFoodEntriesPerDay);
+            var dataFoodEntry = JsonSerializer.Serialize(foodEntryView);
             var contentFoodEntry = new StringContent(dataFoodEntry, Encoding.UTF8, "application/json");
             var response = await _httpClient.PutAsync("api/countcalorie", contentFoodEntry);
         }

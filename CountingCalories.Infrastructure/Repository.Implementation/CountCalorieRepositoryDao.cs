@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using CountingCalories.Domain.Repository.Contract;
 using CountingCalories.Domain.ViewModels;
@@ -48,24 +47,18 @@ namespace CountingCalories.Infrastructure.Repository.Implementation
             _db.SaveChanges();
         }
 
-        public void AddFoodEntries(Dictionary<string, List<FoodEntryView>> foodEntries)
+        public void AddFoodEntry(FoodEntryView newestFoodEntry)
         {
             var currentDate = DateTime.Now.ToString("dd.MM.yyyy");
-            var foodEntryList = foodEntries.FirstOrDefault(k => k.Key.Equals(currentDate)).Value;
-            var allFoodEntryEntities = new List<FoodEntryEntity>();
-            foreach (var foodView in foodEntryList)
+            var foodEntryEntity = new FoodEntryEntity()
             {
-                var foodEntryEntity = new FoodEntryEntity()
-                {
-                    FoodId = foodView.FoodId,
-                    FoodName = foodView.FoodName,
-                    Amount = foodView.Amount,
-                    Calories = foodView.Calories,
-                    FoodPerDayDate = currentDate
-                };
-                allFoodEntryEntities.Add(foodEntryEntity);
-            }
-            _db.FoodEntries.AddRange(allFoodEntryEntities);
+                FoodId = newestFoodEntry.FoodId,
+                FoodName = newestFoodEntry.FoodName,
+                Amount = newestFoodEntry.Amount,
+                Calories = newestFoodEntry.Calories,
+                FoodPerDayDate = currentDate
+            };
+            _db.FoodEntries.Add(foodEntryEntity);
             _db.SaveChanges();
         }
     }

@@ -60,11 +60,11 @@ namespace CountingCalories.UI.Pages
             var entry = await _CalorieService.GetFoodOfDay(DateTime.Now);
             if (entry != null)
             {
-                await _CalorieService.UpdateFoodOfDay(entry, FoodToday.AllFoodEntries);
+                await _CalorieService.UpdateFoodOfDay(entry, FoodEntry);
             }
             else
             {
-                await _CalorieService.AddFoodOfDay(FoodToday, FoodToday.AllFoodEntries);
+                await _CalorieService.AddFoodOfDay(FoodToday, FoodEntry);
             }
 
             FoodEntry = new FoodEntryView() { Amount = 0, FoodId = 0 };

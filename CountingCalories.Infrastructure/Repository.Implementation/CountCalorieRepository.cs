@@ -6,11 +6,11 @@ using CountingCalories.Infrastructure.DataClasses;
 
 namespace CountingCalories.Infrastructure.Repository.Implementation
 {
-    public class CountCalorieRepositoryDao : ICountCalorieRepositoryDao
+    public class CountCalorieRepository : ICountCalorieRepositoryDao
     {
         private CountingCaloriesContext _db;
 
-        public CountCalorieRepositoryDao(CountingCaloriesContext db)
+        public CountCalorieRepository(CountingCaloriesContext db)
         {
             _db = db;
         }

@@ -9,9 +9,9 @@ namespace CountingCalories.Api.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
-        private readonly IFoodRepositoryDao _dao;
+        private readonly IFoodRepository _dao;
 
-        public FoodController(IFoodRepositoryDao dao)
+        public FoodController(IFoodRepository dao)
         {
             _dao = dao;
         }

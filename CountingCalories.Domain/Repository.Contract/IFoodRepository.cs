@@ -3,7 +3,7 @@ using CountingCalories.Domain.ViewModels;
 
 namespace CountingCalories.Domain.Repository.Contract
 {
-    public interface IFoodRepositoryDao
+    public interface IFoodRepository
     {
         IEnumerable<FoodView> GetAllFood();
         FoodView GetFoodByName(string name);

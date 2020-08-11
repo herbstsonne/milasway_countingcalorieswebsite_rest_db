@@ -12,9 +12,9 @@ namespace CountingCalories.Api.Controllers
     [ApiController]
     public class CountCalorieController : Controller
     {
-        private readonly ICountCalorieRepositoryDao _dao;
+        private readonly ICountCalorieRepository _dao;
 
-        public CountCalorieController(ICountCalorieRepositoryDao dao)
+        public CountCalorieController(ICountCalorieRepository dao)
         {
             _dao = dao;
         }

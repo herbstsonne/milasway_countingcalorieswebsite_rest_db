@@ -2,7 +2,7 @@
 using System.Linq;
 using CountingCalories.Domain.Repository.Contract;
 using CountingCalories.Domain.ViewModels;
-using CountingCalories.Infrastructure.Entities;
+using CountingCalories.Infrastructure.DataClasses;
 
 namespace CountingCalories.Infrastructure.Repository.Implementation
 {

@@ -1,4 +1,4 @@
-﻿namespace CountingCalories.Infrastructure.Entities
+﻿namespace CountingCalories.Infrastructure.DataClasses
 {
     public class FoodPerDayEntity
     {

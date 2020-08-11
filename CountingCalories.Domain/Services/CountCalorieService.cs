@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
 using CountingCalories.Domain.ViewModels;
@@ -34,7 +32,7 @@ namespace CountingCalories.Domain.Services
             var content = new StringContent(dataFood, Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync($"api/countcalorie/{foodPerDay}", content);
 
-            UpdateFoodOfDay(foodPerDay, foodEntryView);
+            await UpdateFoodOfDay(foodPerDay, foodEntryView);
         }
 
         public async Task UpdateFoodOfDay(FoodPerDayView foodPerDay, FoodEntryView foodEntryView)

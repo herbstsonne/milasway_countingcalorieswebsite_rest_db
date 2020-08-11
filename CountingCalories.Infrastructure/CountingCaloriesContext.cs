@@ -1,4 +1,4 @@
-﻿using CountingCalories.Infrastructure.Entities;
+﻿using CountingCalories.Infrastructure.DataClasses;
 using Microsoft.EntityFrameworkCore;
 
 namespace CountingCalories.Infrastructure

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using CountingCalories.Domain.Repository.Contract;
 using CountingCalories.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;

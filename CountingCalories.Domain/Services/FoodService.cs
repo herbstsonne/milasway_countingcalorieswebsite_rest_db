@@ -14,17 +14,13 @@ namespace CountingCalories.Domain.Services
         [Inject]
         public HttpClient _HttpClient { get; set; }
 
-        private List<FoodView> allFood;
-
         public FoodService(HttpClient httpClient)
         {
-            allFood = new List<FoodView>();
             _HttpClient = httpClient;
         }
 
         public void SaveFood(FoodView food)
         {
-            allFood.Add(food);
             try
             {
                 var json = JsonConvert.SerializeObject(food);

@@ -14,13 +14,10 @@ namespace CountingCalories.Api
     {
         private IWebHostEnvironment _appHost;
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment appHost)
+        public Startup(IWebHostEnvironment appHost)
         {
-            Configuration = configuration;
             _appHost = appHost;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {

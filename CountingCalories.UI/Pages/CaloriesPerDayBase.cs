@@ -13,7 +13,6 @@ namespace CountingCalories.UI.Pages
         public List<FoodView> AllFoodItems { get; set; }
         public string Name { get; set; }
         protected FoodEntryView FoodEntry { get; set; }
-        //public ViewFoodEntry ViewFoodEntry { get; set; }
         public string CurrentDate { get; set; }
         public FoodPerDayView FoodToday { get; set; }
 
@@ -33,7 +32,6 @@ namespace CountingCalories.UI.Pages
                         };
             CurrentDate = DateTime.Now.ToShortDateString();
             AllFoodItems = new List<FoodView>();
-            //ViewFoodEntry = new ViewFoodEntry(FoodEntry, AllFoodItems);
             base.OnInitialized();
         }
 

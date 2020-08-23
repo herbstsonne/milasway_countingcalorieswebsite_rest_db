@@ -26,6 +26,12 @@ namespace CountingCalories.Domain.Services
             return JsonConvert.DeserializeObject<FoodPerDayView>(await data.Content.ReadAsStringAsync());
         }
 
+        public async Task<int> GetFoodEntryIdOfLastEntry()
+        {
+            var data = await _httpClient.GetAsync("api/countcalorie");
+            return JsonConvert.DeserializeObject<int>(await data.Content.ReadAsStringAsync());
+        }
+
         public async Task AddFoodOfDay(FoodPerDayView foodPerDay, FoodEntryView foodEntryView)
         {
             var dataFood = JsonSerializer.Serialize(foodPerDay);
@@ -40,6 +46,11 @@ namespace CountingCalories.Domain.Services
             var dataFoodEntry = JsonSerializer.Serialize(foodEntryView);
             var contentFoodEntry = new StringContent(dataFoodEntry, Encoding.UTF8, "application/json");
             var response = await _httpClient.PutAsync("api/countcalorie", contentFoodEntry);
+        }
+
+        public async Task DeleteFoodEntry(FoodEntryView foodEntry)
+        {
+            var response = await _httpClient.DeleteAsync($"api/countcalorie/{foodEntry.EntryId}");
         }
     }
 }

@@ -8,5 +8,7 @@ namespace CountingCalories.Domain.Repository.Contract
         FoodPerDayView GetFoodPerDayByDate(string date);
         void AddFoodPerDay(FoodPerDayView foodPerDay);
         void AddFoodEntry(FoodEntryView foodEntry);
+        void DeleteFoodEntry(int id);
+        int GetFoodEntryIdOfLastEntry();
     }
 }

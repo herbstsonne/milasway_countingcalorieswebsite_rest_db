@@ -38,8 +38,9 @@
             foreach (var foodEntry in FoodToday.AllFoodEntries)
             {
                 <tr>
-                    <td>@foodEntry.FoodName</td>
-                    <td>@foodEntry.Calories</td>
+                    <td><InputText id="foodname" @bind-Value="@foodEntry.FoodName" /></td>
+                    <td><InputNumber id="calories" @bind-Value="@foodEntry.Calories" /></td>
+                    <td><a class="btn btn" @onclick="() => DeleteEntry(foodEntry)">Delete</a></td>
                 </tr>
              }
          }

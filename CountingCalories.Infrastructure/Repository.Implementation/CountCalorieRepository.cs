@@ -28,6 +28,7 @@ namespace CountingCalories.Infrastructure.Repository.Implementation
                 where fe.FoodPerDayDate == foodInDay.Day
                 select new FoodEntryView()
                 {
+                    EntryId = fe.Id,
                     FoodId = fe.FoodId,
                     FoodName = fe.FoodName,
                     Amount = fe.Amount,
@@ -60,6 +61,22 @@ namespace CountingCalories.Infrastructure.Repository.Implementation
             };
             _db.FoodEntries.Add(foodEntryEntity);
             _db.SaveChanges();
+        }
+
+        public void DeleteFoodEntry(int id)
+        {
+            var entryEntity = _db.FoodEntries.FirstOrDefault(e => e.Id == id);
+            _db.FoodEntries.Remove(entryEntity);
+            _db.SaveChanges();
+        }
+
+        public int GetFoodEntryIdOfLastEntry()
+        {
+            /*var entryEntity = (from fe in _db.FoodEntries
+                   where fe.FoodPerDayDate == DateTime.Now.ToString("dd.MM.yyyy")
+                   select fe).LastOrDefault();*/
+            var entryEntity = _db.FoodEntries.ToList().LastOrDefault();
+            return entryEntity.Id;
         }
     }
 }

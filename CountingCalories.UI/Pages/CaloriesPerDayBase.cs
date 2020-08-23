@@ -47,6 +47,13 @@ namespace CountingCalories.UI.Pages
             await base.OnInitializedAsync();
         }
 
+        public async void DeleteEntry(FoodEntryView foodEntry)
+        {
+            await _CalorieService.DeleteFoodEntry(foodEntry);
+            FoodToday.AllFoodEntries.Remove(foodEntry);
+            StateHasChanged();
+        }
+
         public async Task AddFoodEntry()
         {
             var food = AllFoodItems.FirstOrDefault(f => f.Name.Equals(Name));
@@ -64,6 +71,7 @@ namespace CountingCalories.UI.Pages
             {
                 await _CalorieService.AddFoodOfDay(FoodToday, FoodEntry);
             }
+            FoodEntry.EntryId = await _CalorieService.GetFoodEntryIdOfLastEntry();
 
             FoodEntry = new FoodEntryView() { Amount = 0, FoodId = 0 };
 

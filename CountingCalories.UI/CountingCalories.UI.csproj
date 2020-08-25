@@ -19,4 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CountingCalories.Domain\CountingCalories.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
 </Project>

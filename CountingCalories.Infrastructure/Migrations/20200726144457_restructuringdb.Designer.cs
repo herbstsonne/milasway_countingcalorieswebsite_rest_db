@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CountingCalories.Infrastructure.Migrations
+namespace CountingCalories.DataAccess.Migrations
 {
     [DbContext(typeof(CountingCaloriesContext))]
     [Migration("20200726144457_restructuringdb")]

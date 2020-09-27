@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
-using CountingCalories.Domain.Services;
-using CountingCalories.Domain.ViewModels;
+using CountingCalories.Shared.ViewModels;
+using CountingCalories.UI.Services;
 
 namespace CountingCalories.UI.Pages
 {

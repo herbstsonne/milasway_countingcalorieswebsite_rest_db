@@ -1,5 +1,6 @@
-﻿using CountingCalories.Domain.Services;
-using CountingCalories.Domain.ViewModels;
+﻿
+using CountingCalories.Shared.ViewModels;
+using CountingCalories.UI.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace CountingCalories.UI.Pages

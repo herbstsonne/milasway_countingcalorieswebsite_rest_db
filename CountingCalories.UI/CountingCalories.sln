@@ -8,7 +8,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountingCalories.Api", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountingCalories.Domain", "..\CountingCalories.Domain\CountingCalories.Domain.csproj", "{61F8660C-EFC4-4117-9A19-E706A3BECFF5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountingCalories.Infrastructure", "..\CountingCalories.Infrastructure\CountingCalories.Infrastructure.csproj", "{6E76863F-AE78-49F0-8627-FABE9DE8CB50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountingCalories.DataAccess", "..\CountingCalories.Infrastructure\CountingCalories.DataAccess.csproj", "{6E76863F-AE78-49F0-8627-FABE9DE8CB50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountingCalories.Shared", "..\CountingCalories.Shared\CountingCalories.Shared.csproj", "{21CA4A97-6C34-49BC-8D3B-2E5FD534CEC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{6E76863F-AE78-49F0-8627-FABE9DE8CB50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E76863F-AE78-49F0-8627-FABE9DE8CB50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E76863F-AE78-49F0-8627-FABE9DE8CB50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21CA4A97-6C34-49BC-8D3B-2E5FD534CEC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21CA4A97-6C34-49BC-8D3B-2E5FD534CEC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21CA4A97-6C34-49BC-8D3B-2E5FD534CEC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21CA4A97-6C34-49BC-8D3B-2E5FD534CEC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

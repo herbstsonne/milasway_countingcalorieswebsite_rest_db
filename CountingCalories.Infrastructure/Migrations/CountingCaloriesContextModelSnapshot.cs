@@ -3,7 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace CountingCalories.Infrastructure.Migrations
+namespace CountingCalories.DataAccess.Migrations
 {
     [DbContext(typeof(CountingCaloriesContext))]
     partial class CountingCaloriesContextModelSnapshot : ModelSnapshot

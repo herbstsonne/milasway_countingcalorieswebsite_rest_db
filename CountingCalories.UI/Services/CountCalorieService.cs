@@ -2,12 +2,12 @@
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using CountingCalories.Domain.ViewModels;
+using CountingCalories.Shared.ViewModels;
 using Newtonsoft.Json;
 using Ninject;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace CountingCalories.Domain.Services
+namespace CountingCalories.UI.Services
 {
     public class CountCalorieService
     {

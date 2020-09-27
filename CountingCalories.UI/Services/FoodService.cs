@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using CountingCalories.Domain.ViewModels;
+using CountingCalories.Shared.ViewModels;
 using Newtonsoft.Json;
 using Ninject;
 
-namespace CountingCalories.Domain.Services
+namespace CountingCalories.UI.Services
 {
     public class FoodService
     {

@@ -64,7 +64,7 @@ namespace CountingCalories.UI.Pages
                 var date = new DateTime();
                 var dm = date.Month + 1;
                 var dj = date.Year;
-                await JSRuntime.InvokeVoidAsync("Kalender", dm, dj, "calendar");
+                //await JSRuntime.InvokeVoidAsync("Kalender", dm, dj, "calendar");
             }
 
         }

@@ -3,29 +3,31 @@
 @inherits CaloriesPerDayBase
 
 <h3>Counting Calories at @CurrentDate</h3>
+<p id="calendar"></p>
 
 <EditForm Model="@FoodEntry">
 
     <div class="row">
-        <ul>
-            <li><label>Choose:</label></li>
+        <p><label>Choose:</label></p><br>
 
-            <li>
-                <InputSelect id="name" @bind-Value="@Name">
-                    @foreach (var food in AllFoodItems)
-                    {
-                        <option value="@food.Name">@food.Name</option>
-                    }
-                </InputSelect>
-            </li>
-            <li>
-                <label>
-                    Amount in g
-                    <InputNumber id="amount" @bind-Value="FoodEntry.Amount" />
-                </label>
-            </li>
-            <li><a class="btn btn-primary" @onclick="AddFoodEntry">Add entry</a></li>
-        </ul>
+        <p>
+            <InputSelect id="name" @bind-Value="@Name">
+                @foreach (var food in AllFoodItems)
+                {
+                    <option value="@food.Name">@food.Name</option>
+                }
+            </InputSelect>
+        </p>
+        <br>
+        <p>
+            <label>
+                Amount in g
+                <InputNumber id="amount" @bind-Value="FoodEntry.Amount" />
+            </label>
+        </p>
+        <br>
+        <p><a class="btn btn-primary" @onclick="AddFoodEntry">Add entry</a></p>
+        <br>
     </div>
 
     <table>
@@ -40,7 +42,7 @@
                 <tr>
                     <td><InputText id="foodname" @bind-Value="@foodEntry.FoodName" /></td>
                     <td><InputNumber id="calories" @bind-Value="@foodEntry.Calories" /></td>
-                    <td><a class="btn btn" @onclick="() => DeleteEntry(foodEntry)">Delete</a></td>
+                    <td><a class="btn btn-primary" @onclick="() => DeleteEntry(foodEntry)">Delete</a></td>
                 </tr>
              }
          }

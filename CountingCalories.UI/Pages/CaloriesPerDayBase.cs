@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
+using Microsoft.JSInterop;
 using CountingCalories.Shared.ViewModels;
 using CountingCalories.UI.Services;
 
@@ -10,6 +11,9 @@ namespace CountingCalories.UI.Pages
 {
     public class CaloriesPerDayBase : ComponentBase
     {
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
+
         public List<FoodView> AllFoodItems { get; set; }
         public string Name { get; set; }
         protected FoodEntryView FoodEntry { get; set; }
@@ -24,19 +28,24 @@ namespace CountingCalories.UI.Pages
 
         protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             FoodEntry = new FoodEntryView() { Amount = 0, FoodId = 0 };
             FoodToday = new FoodPerDayView()
-                        {
-                            Day = DateTime.Now.Date.ToString("dd.MM.yyyy"),
-                            AllFoodEntries = new List<FoodEntryView>()
-                        };
+            {
+                Day = DateTime.Now.Date.ToString("dd.MM.yyyy"),
+                AllFoodEntries = new List<FoodEntryView>()
+            };
             CurrentDate = DateTime.Now.ToShortDateString();
             AllFoodItems = new List<FoodView>();
-            base.OnInitialized();
+
+
         }
 
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
+
             AllFoodItems = await _FoodService.GetAllFood();
             if(AllFoodItems.Any())
                 Name = AllFoodItems.ElementAt(0)?.Name;
@@ -44,9 +53,21 @@ namespace CountingCalories.UI.Pages
             FoodToday = await _CalorieService.GetFoodOfDay(DateTime.Now.Date) ?? FoodToday;
             FoodEntry = new FoodEntryView(); 
             FoodEntry.Calories = CalculateCalories(FoodEntry);
-            await base.OnInitializedAsync();
         }
 
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender)
+            {
+                var date = new DateTime();
+                var dm = date.Month + 1;
+                var dj = date.Year;
+                await JSRuntime.InvokeVoidAsync("Kalender", dm, dj, "calendar");
+            }
+
+        }
         public async void DeleteEntry(FoodEntryView foodEntry)
         {
             await _CalorieService.DeleteFoodEntry(foodEntry);

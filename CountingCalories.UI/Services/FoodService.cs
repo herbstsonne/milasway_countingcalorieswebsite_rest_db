@@ -21,58 +21,29 @@ namespace CountingCalories.UI.Services
 
         public void SaveFood(FoodView food)
         {
-            try
-            {
-                var json = JsonConvert.SerializeObject(food);
-                var data = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpClient.PostAsync("/api/food", data);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            var json = JsonConvert.SerializeObject(food);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient.PostAsync("/api/food", data);
         }
 
         public async Task<List<FoodView>> GetAllFood()
         {
-            try
-            {
-                var response = await HttpClient.GetAsync("api/food");
-                var content = await response.Content.ReadAsStringAsync();
-                var allFood = JsonConvert.DeserializeObject<List<FoodView>>(content);
-                return allFood;
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            return null;
+            var response = await HttpClient.GetAsync("api/food");
+            var content = await response.Content.ReadAsStringAsync();
+            var allFood = JsonConvert.DeserializeObject<List<FoodView>>(content);
+            return allFood;
         }
 
         public async Task Delete(FoodView food)
         {
-            try
-            {
-                var response = await HttpClient.DeleteAsync($"api/food/{food.FoodId}");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            await HttpClient.DeleteAsync($"api/food/{food.FoodId}");
         }
 
         public void Update(List<FoodView> allFood)
         {
-            try
-            {
-                var json = JsonConvert.SerializeObject(allFood);
-                var data = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpClient.PutAsync("api/food", data);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            var json = JsonConvert.SerializeObject(allFood);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient.PutAsync("api/food", data);
         }
     }
 }

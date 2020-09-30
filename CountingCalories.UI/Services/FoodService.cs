@@ -12,11 +12,11 @@ namespace CountingCalories.UI.Services
     public class FoodService
     {
         [Inject]
-        public HttpClient _HttpClient { get; set; }
+        public HttpClient HttpClient { get; set; }
 
         public FoodService(HttpClient httpClient)
         {
-            _HttpClient = httpClient;
+            HttpClient = httpClient;
         }
 
         public void SaveFood(FoodView food)
@@ -25,7 +25,7 @@ namespace CountingCalories.UI.Services
             {
                 var json = JsonConvert.SerializeObject(food);
                 var data = new StringContent(json, Encoding.UTF8, "application/json");
-                _HttpClient.PostAsync("/api/food", data);
+                HttpClient.PostAsync("/api/food", data);
             }
             catch (Exception e)
             {
@@ -37,7 +37,7 @@ namespace CountingCalories.UI.Services
         {
             try
             {
-                var response = await _HttpClient.GetAsync("api/food");
+                var response = await HttpClient.GetAsync("api/food");
                 var content = await response.Content.ReadAsStringAsync();
                 var allFood = JsonConvert.DeserializeObject<List<FoodView>>(content);
                 return allFood;
@@ -53,7 +53,7 @@ namespace CountingCalories.UI.Services
         {
             try
             {
-                var response = await _HttpClient.DeleteAsync($"api/food/{food.FoodId}");
+                var response = await HttpClient.DeleteAsync($"api/food/{food.FoodId}");
             }
             catch (Exception e)
             {
@@ -67,7 +67,7 @@ namespace CountingCalories.UI.Services
             {
                 var json = JsonConvert.SerializeObject(allFood);
                 var data = new StringContent(json, Encoding.UTF8, "application/json");
-                _HttpClient.PutAsync("api/food", data);
+                HttpClient.PutAsync("api/food", data);
             }
             catch (Exception e)
             {

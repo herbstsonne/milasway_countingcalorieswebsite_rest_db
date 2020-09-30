@@ -10,18 +10,18 @@ namespace CountingCalories.UI.Pages
     public class FoodOverviewBase : ComponentBase
     {
         [Inject]
-        public FoodService _FoodService { get; set; }
+        public FoodService FoodService { get; set; }
 
         public List<FoodView> allFood = new List<FoodView>();
 
         protected override async Task OnInitializedAsync()
         {
-            allFood = await _FoodService.GetAllFood();
+            allFood = await FoodService.GetAllFood();
             await base.OnInitializedAsync();
         }
         public void SaveChanges()
         {
-            _FoodService.Update(allFood);
+            FoodService.Update(allFood);
             StateHasChanged();
         }
 
@@ -29,7 +29,7 @@ namespace CountingCalories.UI.Pages
         {
             try
             {
-                await _FoodService.Delete(food);
+                await FoodService.Delete(food);
                 
                 allFood.Remove(food);
                 StateHasChanged();

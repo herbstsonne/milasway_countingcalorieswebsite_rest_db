@@ -10,7 +10,7 @@ namespace CountingCalories.UI.Pages
         public FoodView NewFood;
 
         [Inject]
-        public FoodService _FoodService { get; set; }
+        public FoodService FoodService { get; set; }
 
         public EnterNewFoodBase()
         {
@@ -27,7 +27,7 @@ namespace CountingCalories.UI.Pages
         {
             if (NewFood == null)
                 return;
-            _FoodService.SaveFood(NewFood);
+            FoodService.SaveFood(NewFood);
 
             NewFood = new FoodView();
             StateHasChanged();

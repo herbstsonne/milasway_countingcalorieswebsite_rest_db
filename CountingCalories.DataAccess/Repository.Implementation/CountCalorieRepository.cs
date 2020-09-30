@@ -8,7 +8,7 @@ namespace CountingCalories.DataAccess.Repository.Implementation
 {
     public class CountCalorieRepository : ICountCalorieRepository
     {
-        private CountingCaloriesContext _db;
+        private readonly CountingCaloriesContext _db;
 
         public CountCalorieRepository(CountingCaloriesContext db)
         {

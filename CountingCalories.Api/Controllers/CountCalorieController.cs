@@ -34,47 +34,29 @@ namespace CountingCalories.Api.Controllers
         [HttpPost("{foodPerDay}")]
         public IActionResult Post(FoodPerDayView foodPerDay)
         {
-            try
-            {
-                _dao.AddFoodPerDay(foodPerDay);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return BadRequest();
-            }
+            var count = _dao.AddFoodPerDay(foodPerDay);
+            if (count == 0)
+                throw new ArgumentException($"{foodPerDay.Day} could not be saved.");
+            return Ok();
         }
 
         //api/countcalorie
         [HttpPut]
         public IActionResult Put(FoodEntryView foodEntry)
         {
-            try
-            {
-                _dao.AddFoodEntry(foodEntry);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return BadRequest();
-            }
+            var count =_dao.AddFoodEntry(foodEntry);
+            if (count == 0)
+                throw new ArgumentException($"{foodEntry.FoodName} could not be updated.");
+            return Ok();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            try
-            {
-                _dao.DeleteFoodEntry(id);
-                return Ok();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
-                return BadRequest();
-            }
+            var count = _dao.DeleteFoodEntry(id);
+            if (count == 0)
+                throw new ArgumentException($"{id} could not be deleted.");
+            return Ok();
         }
     }
 }

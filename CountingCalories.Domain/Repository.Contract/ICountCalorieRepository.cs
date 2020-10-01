@@ -6,9 +6,9 @@ namespace CountingCalories.Domain.Repository.Contract
     public interface ICountCalorieRepository
     {
         FoodPerDayView GetFoodPerDayByDate(string date);
-        void AddFoodPerDay(FoodPerDayView foodPerDay);
-        void AddFoodEntry(FoodEntryView foodEntry);
-        void DeleteFoodEntry(int id);
+        int AddFoodPerDay(FoodPerDayView foodPerDay);
+        int AddFoodEntry(FoodEntryView foodEntry);
+        int DeleteFoodEntry(int id);
         int GetFoodEntryIdOfLastEntry();
     }
 }

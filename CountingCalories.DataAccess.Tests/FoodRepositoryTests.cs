@@ -1,6 +1,10 @@
+
 ﻿using CountingCalories.Domain.Repository.Contract;
 using Microsoft.EntityFrameworkCore;
-using Moq;
+﻿using System;
+using CountingCalories.Api;
+using CountingCalories.DataAccess.Repository.Implementation;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace CountingCalories.DataAccess.Tests
@@ -11,12 +15,10 @@ namespace CountingCalories.DataAccess.Tests
         [Fact]
         public void TestGetAllFood()
         {
-            var contextOptions = new Mock<DbContextOptions<CountingCaloriesContext>>();
-            var context = new Mock<CountingCaloriesContext>();
-            var repo = new Mock<IFoodRepository>();
-            //repo.Setup()
-            //var res = repo.GetAllFood();
-            //Assert.NotNull(res);
+            var contextOptions = new DbContextOptions<CountingCaloriesContext>();
+            FoodRepository repo = new FoodRepository(new CountingCaloriesContext(contextOptions));
+            var res = repo.GetAllFood();
+            Assert.NotNull(res);
         }
     }
 }

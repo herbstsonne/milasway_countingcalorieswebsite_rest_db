@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CountingCalories.Domain.ViewModels;
+﻿using CountingCalories.Shared.ViewModels;
 
 namespace CountingCalories.Domain.Repository.Contract
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CountingCalories.Domain.ViewModels
+namespace CountingCalories.Shared.ViewModels
 {
     public class FoodPerDayView
     {

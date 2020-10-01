@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CountingCalories.DataAccess.DataClasses;
 using CountingCalories.Domain.Repository.Contract;
-using CountingCalories.Domain.ViewModels;
-using CountingCalories.Infrastructure.DataClasses;
+using CountingCalories.Shared.ViewModels;
 
-namespace CountingCalories.Infrastructure.Repository.Implementation
+namespace CountingCalories.DataAccess.Repository.Implementation
 {
     public class FoodRepository : IFoodRepository
     {
-        private CountingCaloriesContext _db;
+        private readonly CountingCaloriesContext _db;
 
         public FoodRepository(CountingCaloriesContext db)
         {

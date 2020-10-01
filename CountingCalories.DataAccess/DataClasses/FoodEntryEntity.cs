@@ -1,9 +1,9 @@
-﻿
-namespace CountingCalories.Domain.ViewModels
+﻿namespace CountingCalories.DataAccess.DataClasses
 {
-    public class FoodEntryView
+    public class FoodEntryEntity
     {
-        public int EntryId { get; set; }
+        public int Id { get; set; }
+        public string FoodPerDayDate { get; set; }
         public int FoodId { get; set; }
         public string FoodName { get; set; }
         public int Amount { get; set; }

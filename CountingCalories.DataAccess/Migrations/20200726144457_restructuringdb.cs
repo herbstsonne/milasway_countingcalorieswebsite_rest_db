@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CountingCalories.Infrastructure.Migrations
+namespace CountingCalories.DataAccess.Migrations
 {
     public partial class restructuringdb : Migration
     {

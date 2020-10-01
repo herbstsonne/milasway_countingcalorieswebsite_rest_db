@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CountingCalories.Domain.Repository.Contract;
-using CountingCalories.Domain.ViewModels;
+using CountingCalories.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CountingCalories.Api.Controllers

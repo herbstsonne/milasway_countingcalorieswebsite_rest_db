@@ -1,7 +1,7 @@
-﻿using CountingCalories.Infrastructure.DataClasses;
+﻿using CountingCalories.DataAccess.DataClasses;
 using Microsoft.EntityFrameworkCore;
 
-namespace CountingCalories.Infrastructure
+namespace CountingCalories.DataAccess
 {
     public class CountingCaloriesContext : DbContext
     {

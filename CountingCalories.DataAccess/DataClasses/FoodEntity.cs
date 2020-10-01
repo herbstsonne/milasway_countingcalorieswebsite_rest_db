@@ -1,4 +1,4 @@
-﻿namespace CountingCalories.Infrastructure.DataClasses
+﻿namespace CountingCalories.DataAccess.DataClasses
 {
     public class FoodEntity
     {

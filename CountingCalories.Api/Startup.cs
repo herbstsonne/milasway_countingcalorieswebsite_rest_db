@@ -1,10 +1,9 @@
+using CountingCalories.DataAccess;
+using CountingCalories.DataAccess.Repository.Implementation;
 using CountingCalories.Domain.Repository.Contract;
-using CountingCalories.Infrastructure;
-using CountingCalories.Infrastructure.Repository.Implementation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -12,7 +11,7 @@ namespace CountingCalories.Api
 {
     public class Startup
     {
-        private IWebHostEnvironment _appHost;
+        private readonly IWebHostEnvironment _appHost;
 
         public Startup(IWebHostEnvironment appHost)
         {

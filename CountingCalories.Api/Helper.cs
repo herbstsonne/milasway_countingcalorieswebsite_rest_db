@@ -7,7 +7,7 @@ namespace CountingCalories.Api
     {
         public static string GetPathOfEntityFrameworkProject(IWebHostEnvironment appHost)
         {
-            var path = appHost.ContentRootPath.Replace("CountingCalories.Api", "CountingCalories.Infrastructure");
+            var path = appHost.ContentRootPath.Replace("CountingCalories.Api", "CountingCalories.DataAccess");
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 return path + "/";
             else

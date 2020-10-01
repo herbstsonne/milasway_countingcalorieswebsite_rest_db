@@ -38,17 +38,17 @@ namespace CountingCalories.Infrastructure.Repository.Implementation
             return foodPerDayView;
         }
 
-        public void AddFoodPerDay(FoodPerDayView foodPerDay)
+        public int AddFoodPerDay(FoodPerDayView foodPerDay)
         {
             var foodPerDayEntity = new FoodPerDayEntity()
             {
                 Day = foodPerDay.Day
             };
             _db.FoodPerDays.Add(foodPerDayEntity);
-            _db.SaveChanges();
+            return _db.SaveChanges();
         }
 
-        public void AddFoodEntry(FoodEntryView newestFoodEntry)
+        public int AddFoodEntry(FoodEntryView newestFoodEntry)
         {
             var currentDate = DateTime.Now.ToString("dd.MM.yyyy");
             var foodEntryEntity = new FoodEntryEntity()
@@ -60,14 +60,14 @@ namespace CountingCalories.Infrastructure.Repository.Implementation
                 FoodPerDayDate = currentDate
             };
             _db.FoodEntries.Add(foodEntryEntity);
-            _db.SaveChanges();
+            return _db.SaveChanges();
         }
 
-        public void DeleteFoodEntry(int id)
+        public int DeleteFoodEntry(int id)
         {
             var entryEntity = _db.FoodEntries.FirstOrDefault(e => e.Id == id);
             _db.FoodEntries.Remove(entryEntity);
-            _db.SaveChanges();
+            return _db.SaveChanges();
         }
 
         public int GetFoodEntryIdOfLastEntry()

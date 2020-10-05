@@ -1,4 +1,4 @@
-﻿using CountingCalories.DataAccess.DataClasses;
+﻿using CountingCalories.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CountingCalories.DataAccess

@@ -1,5 +1,4 @@
-﻿using System;
-using CountingCalories.Domain.Repository.Contract;
+﻿using CountingCalories.Domain.Services.Interfaces;
 using CountingCalories.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,34 +8,32 @@ namespace CountingCalories.Api.Controllers
     [ApiController]
     public class CountCalorieController : Controller
     {
-        private readonly ICountCalorieRepository _dao;
+        private readonly ICountingCaloriesApiService _countCaloriesService;
 
-        public CountCalorieController(ICountCalorieRepository dao)
+        public CountCalorieController(ICountingCaloriesApiService countCaloriesService)
         {
-            _dao = dao;
+            _countCaloriesService = countCaloriesService;
         }
 
         //api/countcalorie/dd.MM.yyyy
         [HttpGet("{date}")]
         public FoodPerDayView Get(string date)
         {
-            return _dao.GetFoodPerDayByDate(date);
+            return _countCaloriesService.GetFoodPerDayByDate(date);
         }
 
         //api/countcalorie
         [HttpGet]
         public int Get()
         {
-            return _dao.GetFoodEntryIdOfLastEntry();
+            return _countCaloriesService.GetFoodEntryIdOfLastEntry();
         }
 
         //api/countcalorie/foodperday
         [HttpPost("{foodPerDay}")]
         public IActionResult Post(FoodPerDayView foodPerDay)
         {
-            var count = _dao.AddFoodPerDay(foodPerDay);
-            if (count == 0)
-                throw new ArgumentException($"{foodPerDay.Day} could not be saved.");
+            _countCaloriesService.AddFoodPerDay(foodPerDay);
             return Ok();
         }
 
@@ -44,18 +41,14 @@ namespace CountingCalories.Api.Controllers
         [HttpPut]
         public IActionResult Put(FoodEntryView foodEntry)
         {
-            var count =_dao.AddFoodEntry(foodEntry);
-            if (count == 0)
-                throw new ArgumentException($"{foodEntry.FoodName} could not be updated.");
+            _countCaloriesService.AddFoodEntry(foodEntry);
             return Ok();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var count = _dao.DeleteFoodEntry(id);
-            if (count == 0)
-                throw new ArgumentException($"{id} could not be deleted.");
+            _countCaloriesService.DeleteFoodEntry(id);
             return Ok();
         }
     }

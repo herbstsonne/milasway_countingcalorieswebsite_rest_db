@@ -1,6 +1,9 @@
 using CountingCalories.DataAccess;
 using CountingCalories.DataAccess.Repository.Implementation;
+using CountingCalories.Domain.Entities;
 using CountingCalories.Domain.Repository.Contract;
+using CountingCalories.Domain.Services;
+using CountingCalories.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +24,11 @@ namespace CountingCalories.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IFoodRepository, FoodRepository>();
-            services.AddScoped<ICountCalorieRepository, CountCalorieRepository>();
+            services.AddScoped<ICountingCaloriesApiService, CountingCaloriesApiService>();
+            services.AddScoped<IFoodApiService, FoodApiService>();
+            services.AddScoped<IAsyncRepository<FoodEntryEntity>, FoodEntryRepository>();
+            services.AddScoped<IAsyncRepository<FoodPerDayEntity>, FoodPerDayRepository>();
+            services.AddScoped<IAsyncRepository<FoodEntity>, FoodRepository>();
 
             services.AddEntityFrameworkSqlite()
              .AddDbContext<CountingCaloriesContext>(

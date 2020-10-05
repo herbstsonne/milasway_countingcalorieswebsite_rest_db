@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using CountingCalories.Shared.ViewModels;
 
-namespace CountingCalories.Domain.Repository.Contract
+namespace CountingCalories.Domain.Services.Interfaces
 {
-    public interface IFoodRepository
+    public interface IFoodApiService
     {
         IEnumerable<FoodView> GetAllFood();
         FoodView GetFoodByName(string name);

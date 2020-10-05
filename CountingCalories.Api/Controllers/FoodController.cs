@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CountingCalories.Domain.Repository.Contract;
+using CountingCalories.Domain.Services.Interfaces;
 using CountingCalories.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,46 +10,46 @@ namespace CountingCalories.Api.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
-        private readonly IFoodRepository _dao;
+        private readonly IFoodApiService _foodService;
 
-        public FoodController(IFoodRepository dao)
+        public FoodController(IFoodApiService foodService)
         {
-            _dao = dao;
+            _foodService = foodService;
         }
 
         // GET: api/<FoodController>
         [HttpGet]
         public IEnumerable<FoodView> Get()
         {
-            return _dao.GetAllFood();
+            return _foodService.GetAllFood();
         }
 
         // GET api/<FoodController>/5
         [HttpGet("{name}")]
         public FoodView Get(string name)
         {
-            return _dao.GetFoodByName(name);
+            return _foodService.GetFoodByName(name);
         }
 
         // POST api/<FoodController>
         [HttpPost]
         public void Post(FoodView food)
         {
-            _dao.AddFood(food);
+            _foodService.AddFood(food);
         }
 
         // PUT api/<FoodController>
         [HttpPut]
         public void Put(List<FoodView> allFood)
         {
-            _dao.UpdateAllFood(allFood);
+            _foodService.UpdateAllFood(allFood);
         }
 
         // DELETE api/<FoodController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _dao.DeleteFoodById(id);
+            _foodService.DeleteFoodById(id);
         }
     }
 }

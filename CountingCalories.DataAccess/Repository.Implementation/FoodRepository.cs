@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CountingCalories.DataAccess.DataClasses;
+using CountingCalories.Domain.Entities;
 using CountingCalories.Domain.Repository.Contract;
-using CountingCalories.Shared.ViewModels;
 
 namespace CountingCalories.DataAccess.Repository.Implementation
 {
-    public class FoodRepository : IFoodRepository
+    public class FoodRepository : IAsyncRepository<FoodEntity>
     {
         private readonly CountingCaloriesContext _db;
 
@@ -15,65 +14,46 @@ namespace CountingCalories.DataAccess.Repository.Implementation
             _db = db;
         }
 
-        public IEnumerable<FoodView> GetAllFood()
+        public IEnumerable<FoodEntity> GetAll()
         {
-            var allFood = from f in _db.Food 
-                select new FoodView()
-                {
-                    FoodId = f.Id,
-                    Name = f.Name,
-                    CaloriesPer100G = f.CaloriesPer100G
-                };
-            return allFood;
+            return _db.Food;
         }
 
-        public FoodView GetFoodByName(string name)
+        public FoodEntity GetByName(string name)
         {
             var food = _db.Food.FirstOrDefault(f => f.Name == name);
             if (food == null)
                 return null;
-            return new FoodView()
-            {
-                FoodId = food.Id,
-                Name = food.Name,
-                CaloriesPer100G = food.CaloriesPer100G
-            };
+            return food;
         }
 
-        public void AddFood(FoodView foodView)
+        public void Add(FoodEntity entity)
         {
-            var food = new FoodEntity()
-            {
-                //Id = foodView.FoodId,
-                Name = foodView.Name,
-                CaloriesPer100G = foodView.CaloriesPer100G
-            };
-            _db.Food.Add(food);
+            _db.Food.Add(entity);
             _db.SaveChanges();
         }
 
-        public void UpdateAllFood(List<FoodView> newFoodList)
+        public void UpdateAll(List<FoodEntity> newEntityList)
         {
-            var allFood = new List<FoodEntity>();
-            foreach (var foodView in newFoodList)
-            {
-                var food = new FoodEntity()
-                {
-                    Id = foodView.FoodId,
-                    Name = foodView.Name,
-                    CaloriesPer100G = foodView.CaloriesPer100G
-                };
-                allFood.Add(food);
-            }
-            _db.Food.UpdateRange(allFood);
+            _db.Food.UpdateRange(newEntityList);
             _db.SaveChanges();
         }
 
-        public void DeleteFoodById(int id)
+        public void Delete(int id)
         {
             var food = _db.Food.Find(id);
             _db.Food.Remove(food);
             _db.SaveChanges();
+        }
+
+        public FoodEntity GetByDate(string date)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int GetIdOfLastElement()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

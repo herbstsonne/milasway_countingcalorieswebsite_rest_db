@@ -1,10 +1,5 @@
-
-﻿using CountingCalories.Domain.Repository.Contract;
 using Microsoft.EntityFrameworkCore;
-﻿using System;
-using CountingCalories.Api;
 using CountingCalories.DataAccess.Repository.Implementation;
-using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace CountingCalories.DataAccess.Tests

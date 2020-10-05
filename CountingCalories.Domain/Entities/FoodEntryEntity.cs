@@ -1,8 +1,8 @@
-﻿namespace CountingCalories.DataAccess.DataClasses
+﻿namespace CountingCalories.Domain.Entities
 {
-    public class FoodEntryEntity
+    public class FoodEntryEntity : BaseEntity
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         public string FoodPerDayDate { get; set; }
         public int FoodId { get; set; }
         public string FoodName { get; set; }

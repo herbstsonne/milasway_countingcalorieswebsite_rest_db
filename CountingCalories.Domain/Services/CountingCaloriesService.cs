@@ -56,6 +56,8 @@ namespace CountingCalories.Domain.Services
         {
             var foodPerDayEntity = _repoFoodPerDay.GetByDate(date);
 
+            if (foodPerDayEntity == null)
+                return null;
             var viewEntries = new List<FoodEntryView>();
             foreach (var entityEntry in foodPerDayEntity.AllEntries)
             {

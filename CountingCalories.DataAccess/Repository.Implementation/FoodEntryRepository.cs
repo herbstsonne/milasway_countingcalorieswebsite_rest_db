@@ -44,7 +44,7 @@ namespace CountingCalories.DataAccess.Repository.Implementation
 
         public int GetIdOfLastElement()
         {
-            var last = _db.FoodEntries.LastOrDefault();
+            var last = _db.FoodEntries?.ToList().LastOrDefault();
             if (last == null)
                 return -1;
             return last.Id;

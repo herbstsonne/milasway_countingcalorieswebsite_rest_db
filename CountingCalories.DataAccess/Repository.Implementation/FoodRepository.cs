@@ -33,6 +33,11 @@ namespace CountingCalories.DataAccess.Repository.Implementation
             _db.SaveChanges();
         }
 
+        public void Update(FoodEntity entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void UpdateAll(List<FoodEntity> newEntityList)
         {
             _db.Food.UpdateRange(newEntityList);
@@ -47,11 +52,6 @@ namespace CountingCalories.DataAccess.Repository.Implementation
         }
 
         public FoodEntity GetByDate(string date)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int GetIdOfLastElement()
         {
             throw new System.NotImplementedException();
         }

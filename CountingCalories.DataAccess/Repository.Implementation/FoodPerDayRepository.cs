@@ -16,13 +16,6 @@ namespace CountingCalories.DataAccess.Repository.Implementation
             _db = db;
         }
 
-        public int DeleteFoodEntry(int id)
-        {
-            var entryEntity = _db.FoodEntries.FirstOrDefault(e => e.Id == id);
-            _db.FoodEntries.Remove(entryEntity);
-            return _db.SaveChanges();
-        }
-
         public IEnumerable<FoodPerDayEntity> GetAll()
         {
             throw new NotImplementedException();
@@ -39,6 +32,12 @@ namespace CountingCalories.DataAccess.Repository.Implementation
             _db.SaveChanges();
         }
 
+        public void Update(FoodPerDayEntity entity)
+        {
+            _db.FoodPerDays.Update(entity);
+            _db.SaveChanges();
+        }
+
         public void UpdateAll(List<FoodPerDayEntity> newEntityList)
         {
             throw new NotImplementedException();
@@ -46,8 +45,10 @@ namespace CountingCalories.DataAccess.Repository.Implementation
 
         public void Delete(int id)
         {
-            var entryEntity = _db.FoodEntries.FirstOrDefault(e => e.Id == id);
-            _db.FoodEntries.Remove(entryEntity);
+            var entryEntity = _db.FoodPerDays.FirstOrDefault(e => e.Id == id);
+            if (entryEntity == null)
+                return;
+            _db.FoodPerDays.Remove(entryEntity);
             _db.SaveChanges();
         }
 
@@ -57,11 +58,6 @@ namespace CountingCalories.DataAccess.Repository.Implementation
                 .Include(f => f.AllEntries)
                 .FirstOrDefault(f => f.Day.Equals(date));
             return foodPerDayEntity;
-        }
-
-        public int GetIdOfLastElement()
-        {
-            throw new NotImplementedException();
         }
     }
 }

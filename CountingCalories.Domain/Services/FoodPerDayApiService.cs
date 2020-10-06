@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CountingCalories.Domain.Entities;
 using CountingCalories.Domain.Repository.Contract;
 using CountingCalories.Domain.Services.Interfaces;
@@ -8,29 +6,13 @@ using CountingCalories.Shared.ViewModels;
 
 namespace CountingCalories.Domain.Services
 {
-    public class CountingCaloriesApiService : ICountingCaloriesApiService
+    public class FoodPerDayApiService : IFoodPerDayApiService
     {
         private readonly IAsyncRepository<FoodPerDayEntity> _repoFoodPerDay;
-        private readonly IAsyncRepository<FoodEntryEntity> _repoFoodEntry;
 
-        public CountingCaloriesApiService(IAsyncRepository<FoodPerDayEntity> repoFoodPerDay, IAsyncRepository<FoodEntryEntity> repoFoodEntry)
+        public FoodPerDayApiService(IAsyncRepository<FoodPerDayEntity> repoFoodPerDay)
         {
             _repoFoodPerDay = repoFoodPerDay;
-            _repoFoodEntry = repoFoodEntry;
-        }
-
-        public void AddFoodEntry(FoodEntryView foodEntry)
-        {
-            var currentDate = DateTime.Now.ToString("dd.MM.yyyy");
-            var foodEntryEntity = new FoodEntryEntity()
-            {
-                FoodId = foodEntry.FoodId,
-                FoodName = foodEntry.FoodName,
-                Amount = foodEntry.Amount,
-                Calories = foodEntry.Calories,
-                FoodPerDayDate = currentDate
-            };
-            _repoFoodEntry.Add(foodEntryEntity);
         }
 
         public void AddFoodPerDay(FoodPerDayView foodPerDay)
@@ -42,14 +24,28 @@ namespace CountingCalories.Domain.Services
             _repoFoodPerDay.Add(foodPerDayEntity);
         }
 
-        public void DeleteFoodEntry(int id)
+        public void UpdateFoodPerDay(FoodPerDayView foodPerDay)
         {
-            _repoFoodEntry.Delete(id);
-        }
-
-        public int GetFoodEntryIdOfLastEntry()
-        {
-            return _repoFoodEntry.GetIdOfLastElement();
+            var allEntries = new List<FoodEntryEntity>();
+            foreach (var entry in foodPerDay.AllFoodEntries)
+            {
+                var entryEntity = new FoodEntryEntity()
+                {
+                    Id = entry.EntryId,
+                    FoodId = entry.FoodId,
+                    FoodName = entry.FoodName,
+                    Amount = entry.Amount,
+                    Calories = entry.Calories
+                };
+                allEntries.Add(entryEntity);
+            }
+            var foodPerDayEntity = new FoodPerDayEntity()
+            {
+                Id = foodPerDay.Id,
+                Day = foodPerDay.Day,
+                AllEntries = allEntries
+            };
+            _repoFoodPerDay.Update(foodPerDayEntity);
         }
 
         public FoodPerDayView GetFoodPerDayByDate(string date)
@@ -74,6 +70,7 @@ namespace CountingCalories.Domain.Services
 
             var foodPerDayView = new FoodPerDayView
             {
+                Id = foodPerDayEntity.Id,
                 Day = foodPerDayEntity.Day,
                 AllFoodEntries = viewEntries
             };

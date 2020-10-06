@@ -9,48 +9,39 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace CountingCalories.UI.Services
 {
-    public class CountCalorieService
+    public class FoodPerDayService
     {
+        public Guid InstanceId { get; } = Guid.NewGuid();
+
         [Inject]
         public HttpClient HttpClient { get; set; }
 
-        public CountCalorieService(HttpClient httpClient)
+        public FoodPerDayService(HttpClient httpClient)
         {
             HttpClient = httpClient;
         }
 
-        public async Task<FoodPerDayView> GetFoodOfDay(DateTime date)
+        public async Task<FoodPerDayView> GetFoodPerDay(DateTime date)
         {
             var datestring = date.ToString("dd.MM.yyyy");
             var data = await HttpClient.GetAsync($"api/countcalorie/{datestring}");
             return JsonConvert.DeserializeObject<FoodPerDayView>(await data.Content.ReadAsStringAsync());
         }
 
-        public async Task<int> GetFoodEntryIdOfLastEntry()
-        {
-            var data = await HttpClient.GetAsync("api/countcalorie");
-            return JsonConvert.DeserializeObject<int>(await data.Content.ReadAsStringAsync());
-        }
-
-        public async Task AddFoodOfDay(FoodPerDayView foodPerDay, FoodEntryView foodEntryView)
+        public async Task AddFoodPerDay(FoodPerDayView foodPerDay, FoodEntryView foodEntryView)
         {
             var dataFood = JsonSerializer.Serialize(foodPerDay);
             var content = new StringContent(dataFood, Encoding.UTF8, "application/json");
             await HttpClient.PostAsync($"api/countcalorie/{foodPerDay}", content);
 
-            await UpdateFoodOfDay(foodPerDay, foodEntryView);
+            await UpdateFoodPerDay(foodPerDay);
         }
 
-        public async Task UpdateFoodOfDay(FoodPerDayView foodPerDay, FoodEntryView foodEntryView)
+        public async Task UpdateFoodPerDay(FoodPerDayView foodPerDay)
         {
-            var dataFoodEntry = JsonSerializer.Serialize(foodEntryView);
+            var dataFoodEntry = JsonSerializer.Serialize(foodPerDay);
             var contentFoodEntry = new StringContent(dataFoodEntry, Encoding.UTF8, "application/json");
             await HttpClient.PutAsync("api/countcalorie", contentFoodEntry);
-        }
-
-        public async Task DeleteFoodEntry(FoodEntryView foodEntry)
-        {
-            await HttpClient.DeleteAsync($"api/countcalorie/{foodEntry.EntryId}");
         }
     }
 }

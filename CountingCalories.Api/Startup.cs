@@ -24,9 +24,8 @@ namespace CountingCalories.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<ICountingCaloriesApiService, CountingCaloriesApiService>();
+            services.AddScoped<IFoodPerDayApiService, FoodPerDayApiService>();
             services.AddScoped<IFoodApiService, FoodApiService>();
-            services.AddScoped<IAsyncRepository<FoodEntryEntity>, FoodEntryRepository>();
             services.AddScoped<IAsyncRepository<FoodPerDayEntity>, FoodPerDayRepository>();
             services.AddScoped<IAsyncRepository<FoodEntity>, FoodRepository>();
 
@@ -35,7 +34,10 @@ namespace CountingCalories.Api
                  (sp, options) =>
                  {
                      options.UseSqlite(
-                         @$"Data Source={Helper.GetPathOfEntityFrameworkProject(_appHost)}countingcalories.db"); });
+                         @$"Data Source={Helper.GetPathOfEntityFrameworkProject(_appHost)}countingcalories.db");
+
+                     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                 });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

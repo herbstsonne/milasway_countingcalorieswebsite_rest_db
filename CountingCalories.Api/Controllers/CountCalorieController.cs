@@ -8,9 +8,9 @@ namespace CountingCalories.Api.Controllers
     [ApiController]
     public class CountCalorieController : Controller
     {
-        private readonly ICountingCaloriesApiService _countCaloriesService;
+        private readonly IFoodPerDayApiService _countCaloriesService;
 
-        public CountCalorieController(ICountingCaloriesApiService countCaloriesService)
+        public CountCalorieController(IFoodPerDayApiService countCaloriesService)
         {
             _countCaloriesService = countCaloriesService;
         }
@@ -20,13 +20,6 @@ namespace CountingCalories.Api.Controllers
         public FoodPerDayView Get(string date)
         {
             return _countCaloriesService.GetFoodPerDayByDate(date);
-        }
-
-        //api/countcalorie
-        [HttpGet]
-        public int Get()
-        {
-            return _countCaloriesService.GetFoodEntryIdOfLastEntry();
         }
 
         //api/countcalorie/foodperday
@@ -39,16 +32,9 @@ namespace CountingCalories.Api.Controllers
 
         //api/countcalorie
         [HttpPut]
-        public IActionResult Put(FoodEntryView foodEntry)
+        public IActionResult Put(FoodPerDayView foodPerDay)
         {
-            _countCaloriesService.AddFoodEntry(foodEntry);
-            return Ok();
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            _countCaloriesService.DeleteFoodEntry(id);
+            _countCaloriesService.UpdateFoodPerDay(foodPerDay);
             return Ok();
         }
     }

@@ -28,7 +28,7 @@ namespace CountingCalories.UI
                     c.BaseAddress = baseUri;
                 }
             );
-            services.AddHttpClient<CountCalorieService>("restcallcountcalorie", c =>
+            services.AddHttpClient<FoodPerDayService>("restcallcountcalorie", c =>
                 {
                     c.BaseAddress = baseUri;
                 }

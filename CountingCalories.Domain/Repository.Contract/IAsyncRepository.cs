@@ -8,8 +8,8 @@ namespace CountingCalories.Domain.Repository.Contract
         IEnumerable<T> GetAll();
         T GetByName(string name);
         T GetByDate(string date);
-        int GetIdOfLastElement();
         void Add(T entity);
+        void Update(T entity);
         void UpdateAll(List<T> newEntityList);
         void Delete(int id);
     }

@@ -9,7 +9,7 @@ using CountingCalories.UI.Services;
 
 namespace CountingCalories.UI.Pages
 {
-    public class CaloriesPerDayBase : ComponentBase
+    public class FoodPerDayBase : ComponentBase
     {
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
@@ -21,7 +21,7 @@ namespace CountingCalories.UI.Pages
         public FoodPerDayView FoodToday { get; set; }
 
         [Inject]
-        public CountCalorieService CalorieService { get; set; }
+        public FoodPerDayService CalorieService { get; set; }
 
         [Inject]
         public FoodService FoodService { get; set; }
@@ -38,8 +38,6 @@ namespace CountingCalories.UI.Pages
             };
             CurrentDate = DateTime.Now.ToShortDateString();
             AllFoodItems = new List<FoodView>();
-
-
         }
 
         protected override async Task OnInitializedAsync()
@@ -50,7 +48,7 @@ namespace CountingCalories.UI.Pages
             if(AllFoodItems.Any())
                 Name = AllFoodItems.ElementAt(0)?.Name;
 
-            FoodToday = await CalorieService.GetFoodOfDay(DateTime.Now.Date) ?? FoodToday;
+            FoodToday = await CalorieService.GetFoodPerDay(DateTime.Now.Date) ?? FoodToday;
             FoodEntry = new FoodEntryView(); 
             FoodEntry.Calories = CalculateCalories(FoodEntry);
         }
@@ -70,8 +68,8 @@ namespace CountingCalories.UI.Pages
         }
         public async void DeleteEntry(FoodEntryView foodEntry)
         {
-            await CalorieService.DeleteFoodEntry(foodEntry);
             FoodToday.AllFoodEntries.Remove(foodEntry);
+            await CalorieService.UpdateFoodPerDay(FoodToday);
             StateHasChanged();
         }
 
@@ -82,17 +80,8 @@ namespace CountingCalories.UI.Pages
             FoodEntry.FoodId = food.FoodId;
             FoodEntry.Calories = CalculateCalories(FoodEntry);
             FoodToday.AllFoodEntries.Add(FoodEntry);
-
-            var entry = await CalorieService.GetFoodOfDay(DateTime.Now);
-            if (entry != null)
-            {
-                await CalorieService.UpdateFoodOfDay(entry, FoodEntry);
-            }
-            else
-            {
-                await CalorieService.AddFoodOfDay(FoodToday, FoodEntry);
-            }
-            FoodEntry.EntryId = await CalorieService.GetFoodEntryIdOfLastEntry();
+            
+            await CalorieService.UpdateFoodPerDay(FoodToday);
 
             FoodEntry = new FoodEntryView() { Amount = 0, FoodId = 0 };
 
